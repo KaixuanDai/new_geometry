@@ -170,7 +170,7 @@ var createScene = function () {
     true_tri5.edgesWidth = 20.0;
     true_tri5.edgesColor = new BABYLON.Color4(0, 0, 0, 1);
 
-    var true_box = BABYLON.MeshBuilder.ExtrudePolygon("truebox", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_box = BABYLON.MeshBuilder.ExtrudePolygon("truebox6", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_box.material = blankMaterial;
     true_box.position = new BABYLON.Vector3(2.7, 1, -6)
     true_box.scaling = new BABYLON.Vector3(1 * 2, 1, 1 * 2);
@@ -180,7 +180,7 @@ var createScene = function () {
     true_box.edgesWidth = 20.0;
     true_box.edgesColor = new BABYLON.Color4(0, 0, 0, 1);
 
-    var true_para = BABYLON.MeshBuilder.ExtrudePolygon("truepara", { shape: para, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_para = BABYLON.MeshBuilder.ExtrudePolygon("truepara7", { shape: para, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_para.material = blankMaterial;
     true_para.position = new BABYLON.Vector3(4.6, 1, 9.8)
     true_para.scaling = new BABYLON.Vector3(1 * 2, 1, 1 * 2);

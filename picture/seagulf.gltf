@@ -1,0 +1,239 @@
+{
+  "asset": {
+    "version": "2.0",
+    "generator": "Microsoft GLTF Exporter 2.2.8-b10"
+  },
+  "accessors": [
+    {
+      "bufferView": 0,
+      "byteOffset": 0,
+      "componentType": 5123,
+      "count": 83412,
+      "type": "SCALAR",
+      "max": [
+        16284
+      ],
+      "min": [
+        0
+      ]
+    },
+    {
+      "bufferView": 1,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 16285,
+      "type": "VEC3",
+      "max": [
+        0.9870444536209106,
+        4.709831237792969,
+        1.8733636140823364
+      ],
+      "min": [
+        -0.9870449304580688,
+        -0.00006151199340820312,
+        -1.8733636140823364
+      ]
+    },
+    {
+      "bufferView": 2,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 16285,
+      "type": "VEC3",
+      "max": [
+        0.9999880194664001,
+        0.9999467730522156,
+        0.9997586607933044
+      ],
+      "min": [
+        -0.9999880194664001,
+        -0.9999989867210388,
+        -0.9999895095825195
+      ]
+    },
+    {
+      "bufferView": 3,
+      "byteOffset": 0,
+      "componentType": 5126,
+      "count": 16285,
+      "type": "VEC2",
+      "max": [
+        0.9919232726097107,
+        0.9911478161811829
+      ],
+      "min": [
+        0.0062908269464969635,
+        0.009797394275665283
+      ]
+    }
+  ],
+  "bufferViews": [
+    {
+      "buffer": 0,
+      "byteLength": 166824,
+      "byteOffset": 0,
+      "target": 34963
+    },
+    {
+      "buffer": 0,
+      "byteLength": 195420,
+      "byteOffset": 166824,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 195420,
+      "byteOffset": 362244,
+      "target": 34962
+    },
+    {
+      "buffer": 0,
+      "byteLength": 130280,
+      "byteOffset": 557664,
+      "target": 34962
+    }
+  ],
+  "buffers": [
+    {
+      "uri": "seagulf_data.bin",
+      "byteLength": 687944
+    }
+  ],
+  "images": [
+    {
+      "uri": "seagulf_img0.png"
+    },
+    {
+      "uri": "seagulf_img1.png"
+    },
+    {
+      "uri": "seagulf_img2.png"
+    },
+    {
+      "uri": "seagulf_img3.png"
+    }
+  ],
+  "materials": [
+    {
+      "pbrMetallicRoughness": {
+        "baseColorTexture": {
+          "index": 2
+        },
+        "metallicRoughnessTexture": {
+          "index": 3
+        }
+      },
+      "name": "7",
+      "extensions": {
+        "KHR_materials_pbrSpecularGlossiness": {
+          "diffuseFactor": [
+            0.800000011920929,
+            0.800000011920929,
+            0.800000011920929,
+            1
+          ],
+          "diffuseTexture": {
+            "index": 0
+          },
+          "specularFactor": [
+            0.21568627655506134,
+            0.21568627655506134,
+            0.21568627655506134
+          ],
+          "glossinessFactor": 0.1882352977991104,
+          "specularGlossinessTexture": {
+            "index": 1
+          }
+        }
+      }
+    }
+  ],
+  "meshes": [
+    {
+      "name": "mesh_id26",
+      "primitives": [
+        {
+          "attributes": {
+            "NORMAL": 2,
+            "POSITION": 1,
+            "TEXCOORD_0": 3
+          },
+          "indices": 0,
+          "material": 0,
+          "mode": 4
+        }
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "matrix": [
+        217.4147186279297,
+        0,
+        0,
+        0,
+        0,
+        217.4147186279297,
+        0,
+        0,
+        0,
+        0,
+        217.4147186279297,
+        0,
+        0.00005183570829103701,
+        -511.98663330078125,
+        512,
+        1
+      ],
+      "mesh": 0,
+      "name": "mesh_id26",
+      "extensions": {}
+    },
+    {
+      "children": [
+        0
+      ],
+      "name": "root",
+      "extensions": {}
+    }
+  ],
+  "samplers": [
+    {
+      "minFilter": 9985
+    }
+  ],
+  "scenes": [
+    {
+      "nodes": [
+        1
+      ]
+    }
+  ],
+  "scene": 0,
+  "textures": [
+    {
+      "name": "texture3",
+      "sampler": 0,
+      "source": 0
+    },
+    {
+      "name": "texture5",
+      "sampler": 0,
+      "source": 1
+    },
+    {
+      "name": "texture_3_2048x2048_bc",
+      "sampler": 0,
+      "source": 2
+    },
+    {
+      "name": "texture_5_2048x2048_mr",
+      "sampler": 0,
+      "source": 3
+    }
+  ],
+  "extensionsUsed": [
+    "KHR_materials_pbrSpecularGlossiness",
+    "MSFT_lod"
+  ]
+}

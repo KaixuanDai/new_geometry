@@ -22,7 +22,7 @@ document.write("<script language=javascript src='/js/shpChange.js'></script>");
 function dataInput(ip, port) {
     
     //websocket 传输数据
-    var ws = new WebSocket('ws://' + ip + ':' + port);
+    var ws = new WebSocket('ws://' + '127.0.0.1' + ':' + port);
 
     
     ws.onopen = function () {

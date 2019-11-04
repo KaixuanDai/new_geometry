@@ -23,6 +23,8 @@ var createScene = function () {
     var materialGround = new BABYLON.StandardMaterial("texture1", scene);    
     materialGround.alpha = 0.99;    
     materialGround.alphaMode=4;
+    // materialGround.alphaMode=2;
+
     materialGround.backFaceCulling = false;
 
 
@@ -30,16 +32,29 @@ var createScene = function () {
     materialGround.diffuseTexture    = new BABYLON.Texture("angle.png", scene);
     ground.material = materialGround;
 
-    //设置skybox
-    var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
-    var skyboxMaterial = new BABYLON.StandardMaterial("/skyBox", scene);
-    skyboxMaterial.backFaceCulling = false;
-    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/../img/skyBox/5", scene);
-    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-    skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-    skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-    skyboxMaterial.disableLighting = true;
-    skybox.material = skyboxMaterial;
+    // //设置skybox
+    // var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
+    // var skyboxMaterial = new BABYLON.StandardMaterial("/skyBox", scene);
+    // skyboxMaterial.backFaceCulling = false;
+    // skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/../img/skyBox/5", scene);
+    // skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    // skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+    // skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+    // skyboxMaterial.disableLighting = true;
+    // skybox.material = skyboxMaterial;
+
+
+      //设置背景环境
+      BABYLON.SceneLoader.ImportMesh("","/img/","cloud.glb",scene,function(newMeshes/*,particleSysterms,skeletons*/){
+        
+        var ocloud = newMeshes[0];
+        
+        //seagulf.position = new BABYLON.Vector3(0,3,0);
+        ocloud.scaling = new BABYLON.Vector3(15,15,15);        
+        //shadowGenerator.getShadowMap().renderList.push(seagulf);
+        //scene.beginAnimation(skeletons[0],0,100,true,0.8);
+        //scene.createCmeraOrLight(true,ture,ture);
+    } );
 
     var randMaterial = new BABYLON.StandardMaterial('redMat', scene);
     randMaterial.diffuseColor = BABYLON.Color3.Random();
@@ -120,44 +135,44 @@ var createScene = function () {
 
     
     //待选择的几何形状    
-    var true_tri1 = BABYLON.MeshBuilder.ExtrudePolygon("truetri1", { shape: tri, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
-    true_tri1.material = blankMaterial;
-    true_tri1.position = new BABYLON.Vector3(-16, 1, 10)
-    true_tri1.scaling = new BABYLON.Vector3(6, 1, 6);
-    true_tri1.addRotation(0, Math.PI*3 / 4, 0).addRotation(0, 0, 0);
-    true_tri1.state = "truetri1";
-    true_tri1.enableEdgesRendering();
-    true_tri1.edgesWidth = 20.0;
-    true_tri1.edgesColor = new BABYLON.Color4(1, 0, 0, 1);
-    true_tri1.enableEdgesRendering(.9999);
+    // var true_tri1 = BABYLON.MeshBuilder.ExtrudePolygon("truetri1", { shape: tri, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    // true_tri1.material = blankMaterial;
+    // true_tri1.position = new BABYLON.Vector3(-16, 1, 10)
+    // true_tri1.scaling = new BABYLON.Vector3(6, 1, 6);
+    // true_tri1.addRotation(0, Math.PI*3 / 4, 0).addRotation(0, 0, 0);
+    // true_tri1.state = "truetri1";
+    // true_tri1.enableEdgesRendering();
+    // true_tri1.edgesWidth = 20.0;
+    // true_tri1.edgesColor = new BABYLON.Color4(1, 0, 0, 1);
+    // true_tri1.enableEdgesRendering(.9999);
 
 
 
 
-    var true_box = BABYLON.MeshBuilder.ExtrudePolygon("truebox", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
-    true_box.material = blankMaterial;
-    true_box.position = new BABYLON.Vector3(-8, 1, 6)
-    true_box.scaling = new BABYLON.Vector3(1 * 4, 1, 1 * 4);
-    true_box.rotation = new BABYLON.Vector3(0, 0, 0);
-    true_box.state = "truebox";
-    true_box.enableEdgesRendering();
-    true_box.edgesWidth = 20.0;
-    true_box.edgesColor = new BABYLON.Color4(0, 1, 0, 1);
+    // var true_box = BABYLON.MeshBuilder.ExtrudePolygon("truebox", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    // true_box.material = blankMaterial;
+    // true_box.position = new BABYLON.Vector3(-8, 1, 6)
+    // true_box.scaling = new BABYLON.Vector3(1 * 4, 1, 1 * 4);
+    // true_box.rotation = new BABYLON.Vector3(0, 0, 0);
+    // true_box.state = "truebox";
+    // true_box.enableEdgesRendering();
+    // true_box.edgesWidth = 20.0;
+    // true_box.edgesColor = new BABYLON.Color4(0, 1, 0, 1);
 
-    var true_rec = BABYLON.MeshBuilder.ExtrudePolygon("truerec", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
-    true_rec.material = blankMaterial;
-    true_rec.position = new BABYLON.Vector3(10, 1, 6)
-    true_rec.scaling = new BABYLON.Vector3(1 * 4, 1, 1 * 6);
-    true_rec.rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
-    true_rec.state = "truerec";
-    true_rec.enableEdgesRendering();
-    true_rec.edgesWidth = 20.0;
-    true_rec.edgesColor = new BABYLON.Color4(0, 0, 1, 1);
+    // var true_rec = BABYLON.MeshBuilder.ExtrudePolygon("truerec", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    // true_rec.material = blankMaterial;
+    // true_rec.position = new BABYLON.Vector3(10, 1, 6)
+    // true_rec.scaling = new BABYLON.Vector3(1 * 4, 1, 1 * 6);
+    // true_rec.rotation = new BABYLON.Vector3(0, -Math.PI / 2, 0);
+    // true_rec.state = "truerec";
+    // true_rec.enableEdgesRendering();
+    // true_rec.edgesWidth = 20.0;
+    // true_rec.edgesColor = new BABYLON.Color4(0, 0, 1, 1);
 
 
 
     var true_cir_center = BABYLON.MeshBuilder.CreateCylinder("truecir", {height:0.2, diameter:1,tessellation: 99}, scene);         
-    true_cir_center.material=blue1Material;
+    true_cir_center.material=blueMaterial;
     true_cir_center.position = new BABYLON.Vector3(0.25, 0.1, -13.5)
     // true_cir.scaling = new BABYLON.Vector3(1, 1, 1 );           
     true_cir_center.state="truecir";
@@ -167,7 +182,7 @@ var createScene = function () {
 
 
     var true_cir_bottom = BABYLON.MeshBuilder.CreateCylinder("truecir", {height:0.2, diameter:1,tessellation: 99}, scene);         
-    true_cir_bottom.material=blue1Material;
+    true_cir_bottom.material=blueMaterial;
     true_cir_bottom.position = new BABYLON.Vector3(16, 0.1, -13.5)
     // true_cir_bottom.scaling = new BABYLON.Vector3(1, 1, 1 );           
     true_cir_bottom.state="truecir";
@@ -180,7 +195,7 @@ var createScene = function () {
     var lines = BABYLON.Mesh.CreateBox("wall", 1, scene);
     lines.position=new BABYLON.Vector3(8, 0.1, -13.5)
 
-    lines.material=blue1Material;
+    lines.material=blueMaterial;
     lines.scaling= new BABYLON.Vector3(15, 0.01, 0.3);
 
 
@@ -222,7 +237,7 @@ var createScene = function () {
     };
     /***************************End World Axes***************************/
 
-    showAxis(8);//显示世界坐标系 参数代表轴的长度
+    //showAxis(8);//显示世界坐标系 参数代表轴的长度
 
     /*******************************Local Axes 局部坐标系显示****************************/
     function localAxes(size) {
@@ -257,7 +272,7 @@ var createScene = function () {
     /*******************************End Local Axes****************************/
 
 
-    localAxes(4);
+    //localAxes(4);
 
 
 

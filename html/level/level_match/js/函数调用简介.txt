@@ -1,0 +1,14 @@
+function dataInput(ip, port) {return data[]}
+
+	function dataHandle(data, width, height) {return realPos}
+		function getAllmeshid() {}
+		function getArrDifference(arr1, arr2) {}
+		function disposePos(ids) {}
+
+	function dataJudge(realPos) {}
+		function createShape(id, realPos){}
+		function changePos(id.toString(), realPos){}
+		function  judge(id.toString()){}
+			function afterJudge(id) {}
+
+

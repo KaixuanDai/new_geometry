@@ -22,7 +22,7 @@ document.write("<script language=javascript src='/js/shpChange.js'></script>");
 function dataInput(ip, port) {
     
     //websocket 传输数据
-    var ws = new WebSocket('ws://' + '192.168.1.22' + ':' + port);
+    var ws = new WebSocket('ws://' + '127.0.0.1' + ':' + port);
 
     
     ws.onopen = function () {
@@ -92,7 +92,7 @@ function dataHandle(data, width, height) {
     }
         var i;
         for (i in data.tracks) {
-            if (data.tracks[i].x >= -2 && data.tracks[i].x <= 2 && data.tracks[i].y >= -2 && data.tracks[i].y <= 2) {
+            if (data.tracks[i].x >= -20 && data.tracks[i].x <= 20 && data.tracks[i].y >= -20 && data.tracks[i].y <= 20) {
 
                 var x = data.tracks[i]["x"];
                 var z = -data.tracks[i]["y"];

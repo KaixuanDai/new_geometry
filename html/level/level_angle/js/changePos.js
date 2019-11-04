@@ -69,7 +69,7 @@ function showText(text,mesh)
     //Add text to dynamic texture
     var font = "bold 120px monospace";
     
-    textureGround.drawText(text+'度', 140, 150, font, "red", "white", false, true);
+    textureGround.drawText(text+'度', 135, 150, font, "yellow", "blue", false, true);
 	
 
     }
