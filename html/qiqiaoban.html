@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Level-2-1</title>
+
+    <style>
+        html,body{
+            overflow: hidden;
+            width:100%;
+            height: 100%;
+            margin:0;
+            padding: 0;
+        }
+        #renderCanvas{
+            width:100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+    <script src="/node_modules/earcut/dist/earcut.min.js"></script>
+    <script src="/node_modules/babylonjs/babylon.js"></script>
+    <script src="/node_modules/babylonjs/Oimo.js"></script>
+    <script src="/node_modules/_babylonjs-gui@3.3.0@babylonjs-gui/babylon.gui.min.js"></script>
+
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas=document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var createScene = function () {
+            // This creates a basic Babylon Scene object (non-mesh)
+            var scene = new BABYLON.Scene(engine);
+            
+            var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI / 2,  Math.PI / 4, 5, BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+
+            //设置skybox
+            var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
+            var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+            skyboxMaterial.backFaceCulling = false;
+            skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("../img/skybox/1", scene);
+            skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+            skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+            skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+            skyboxMaterial.disableLighting = true;
+            skybox.material = skyboxMaterial;
+
+            var shapeTri = [ 
+                  new BABYLON.Vector3(0, 0, 0),
+                  new BABYLON.Vector3(0, 0, 2), 
+                  new BABYLON.Vector3(2, 0, 2), 
+
+            ];
+
+            var shapeSquare = [
+                  new BABYLON.Vector3(0, 0, 0),
+                  new BABYLON.Vector3(2, 0, 0), 
+                  new BABYLON.Vector3(2, 0, -2),
+                  new BABYLON.Vector3(0, 0, -2),
+            ]
+
+            var shapePara = [
+                  new BABYLON.Vector3(0, 0, 0),
+                  new BABYLON.Vector3(2, 0, 0), 
+                  new BABYLON.Vector3(4, 0, 2),
+                  new BABYLON.Vector3(2, 0, 2),
+            ]
+            
+            var facecolor = [];
+            facecolor[0] = new BABYLON.Color3(1,0,0);
+            facecolor[1] = new BABYLON.Color3(1,0.6,0);
+            facecolor[2] = new BABYLON.Color3(1,0.9,0.2);
+            facecolor[3] = new BABYLON.Color3(0.3,0.8,0);
+            facecolor[4] = new BABYLON.Color3(0.3,0.8,0.9);
+            facecolor[5] = new BABYLON.Color3(0.3,0.3,1);
+            facecolor[6] = new BABYLON.Color3(0.7,0.4,1);
+
+            
+            const material = [];
+            material[0] = new BABYLON.StandardMaterial("texture0", scene);
+            material[1] = new BABYLON.StandardMaterial("texture1", scene);
+            material[2] = new BABYLON.StandardMaterial("texture2", scene);
+            material[3] = new BABYLON.StandardMaterial("texture3", scene);
+            material[4] = new BABYLON.StandardMaterial("texture4", scene);
+            material[5] = new BABYLON.StandardMaterial("texture5", scene);
+            material[6] = new BABYLON.StandardMaterial("texture6", scene);
+            
+            for (var i = 0; i < 7; i++) {
+                material[i].diffuseColor = facecolor[i];
+            }
+            
+
+            const material2 = new BABYLON.StandardMaterial("muzhi", scene);
+            material2.diffuseTexture = new BABYLON.Texture('../img/ground.jpg', scene);
+            material2.diffuseTexture.hasAlpha = true; //显示为透明
+            material2.backFaceCulling = false; //使透明在背面也显示贴图，而不是裁切后显示为空
+
+            
+    
+
+            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+            var ground = BABYLON.Mesh.CreateGround("ground1", 100, 100, 2, scene);
+            ground.material = material2;
+
+            //to build two small triangles
+            var shapetri1 = BABYLON.MeshBuilder.ExtrudePolygon("tri1",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            shapetri1.position = new BABYLON.Vector3(0,1,0);
+            shapetri1.material = material[0];
+            var shapetri2 = BABYLON.MeshBuilder.ExtrudePolygon("tri2",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            shapetri2.position = new BABYLON.Vector3(4,1,-2);
+            shapetri2.rotation = new BABYLON.Vector3(0,-Math.PI/2,0);
+            shapetri2.material = material[1];
+
+            //to build the midium triangles
+            var shapetri3 = BABYLON.MeshBuilder.ExtrudePolygon("tri3",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            shapetri3.position = new BABYLON.Vector3(4,1,-2);
+            shapetri3.material = material[2];
+            shapetri3.rotation = new BABYLON.Vector3(0,-Math.PI/4,0);
+            shapetri3.scaling = new BABYLON.Vector3(Math.sqrt(2),Math.sqrt(2),Math.sqrt(2));
+
+            //to build two big triangles
+            var shapetri4 = BABYLON.MeshBuilder.ExtrudePolygon("tri4",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            shapetri4.position = new BABYLON.Vector3(-4,1,2);
+            shapetri4.rotation = new BABYLON.Vector3(0,Math.PI/2,0);
+            shapetri4.scaling = new BABYLON.Vector3(2,2,2);
+            shapetri4.material = material[3];
+            var shapetri5 = BABYLON.MeshBuilder.ExtrudePolygon("tri5",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            shapetri5.position = new BABYLON.Vector3(0,1,-2);
+            shapetri5.rotation = new BABYLON.Vector3(0,-Math.PI/2,0);
+            shapetri5.scaling = new BABYLON.Vector3(2,2,2);
+            shapetri5.material = material[4];
+            
+            //to build a square
+            var shapesquare = BABYLON.MeshBuilder.ExtrudePolygon("square",{shape:shapeSquare,depth:0.01,sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            shapesquare.position = new BABYLON.Vector3(0,1,0);
+            shapesquare.material = material[5];
+            
+            //to build a para
+            var shapepara = BABYLON.MeshBuilder.ExtrudePolygon("para",{shape:shapePara,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            shapepara.position = new BABYLON.Vector3(0,1,0);
+            shapepara.material = material[6];
+
+            return scene;
+        }
+        
+        
+
+        scene=createScene();//调用函数
+        
+        //注册一个重复渲染场景
+        engine.runRenderLoop(function(){
+            scene.render();
+        })
+
+          // 监测浏览器/画布大小改变事件
+        window.addEventListener("resize",function()
+        {
+            engine.resize();
+        })
+
+
+
+    </script>
+
+
+
+</body>

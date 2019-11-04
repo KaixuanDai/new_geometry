@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Level-2-1</title>
+
+    <style>
+        html,body{
+            overflow: hidden;
+            width:100%;
+            height: 100%;
+            margin:0;
+            padding: 0;
+        }
+        #renderCanvas{
+            width:100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+    <script src="/node_modules/earcut/dist/earcut.min.js"></script>
+    <script src="/node_modules/babylonjs/babylon.js"></script>
+    <script src="/node_modules/babylonjs/Oimo.js"></script>
+    <!-- <script src="/node_modules/_babylonjs-gui@3.3.0@babylonjs-gui/babylon.gui.min.js"></script> -->
+
+</head>
+<body>
+    <canvas id="renderCanvas"></canvas>
+    <script>
+        var canvas=document.getElementById("renderCanvas");
+        var engine = new BABYLON.Engine(canvas, true);
+
+        var createScene = function () {
+            // This creates a basic Babylon Scene object (non-mesh)
+            var scene = new BABYLON.Scene(engine);
+            
+            var camera = new BABYLON.ArcRotateCamera("Camera", -Math.PI/2,  0,200, BABYLON.Vector3.Zero(), scene);
+            camera.attachControl(canvas, true);
+
+            // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 1, 0), scene);
+
+            // Default intensity is 1. Let's dim the light a small amount
+            light.intensity = 0.7;
+/*
+            //设置skybox
+            var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
+            var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+            skyboxMaterial.backFaceCulling = false;
+            skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("skyBox/5", scene);
+            skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+            skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+            skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+            skyboxMaterial.disableLighting = true;
+            skybox.material = skyboxMaterial;
+*/
+            var shapeTri = [ 
+                  new BABYLON.Vector3(0, 0, 0),
+                  new BABYLON.Vector3(0, 0, 20), 
+                  new BABYLON.Vector3(20, 0, 20), 
+
+            ];
+
+            var shapeSquare = [
+                  new BABYLON.Vector3(0, 0, 0),
+                  new BABYLON.Vector3(20, 0, 0), 
+                  new BABYLON.Vector3(20, 0, -20),
+                  new BABYLON.Vector3(0, 0, -20),
+            ]
+
+            var shapePara = [
+                  new BABYLON.Vector3(0, 0, 0),
+                  new BABYLON.Vector3(20, 0, 0), 
+                  new BABYLON.Vector3(40, 0, 20),
+                  new BABYLON.Vector3(20, 0, 20),
+            ]
+            
+            var facecolor = [];
+            facecolor[0] = new BABYLON.Color3(1,0,0);
+            facecolor[1] = new BABYLON.Color3(1,0.6,0);
+            facecolor[2] = new BABYLON.Color3(1,0.9,0.2);
+            facecolor[3] = new BABYLON.Color3(0.3,0.8,0);
+            facecolor[4] = new BABYLON.Color3(0.3,0.8,0.9);
+            facecolor[5] = new BABYLON.Color3(0.3,0.3,1);
+            facecolor[6] = new BABYLON.Color3(0.7,0.4,1);
+
+            
+            const material = [];
+            material[0] = new BABYLON.StandardMaterial("texture0", scene);
+            material[1] = new BABYLON.StandardMaterial("texture1", scene);
+            material[2] = new BABYLON.StandardMaterial("texture2", scene);
+            material[3] = new BABYLON.StandardMaterial("texture3", scene);
+            material[4] = new BABYLON.StandardMaterial("texture4", scene);
+            material[5] = new BABYLON.StandardMaterial("texture5", scene);
+            material[6] = new BABYLON.StandardMaterial("texture6", scene);
+            
+            for (var i = 0; i < 7; i++) {
+                material[i].diffuseColor = facecolor[i];
+            }
+            
+            var blankMaterial = new BABYLON.StandardMaterial('blkMat',scene);
+            blankMaterial.alpha=0;
+
+            const material2 = new BABYLON.StandardMaterial("muzhi", scene);
+            material2.diffuseTexture = new BABYLON.Texture("../../img/ground.jpg", scene);
+            material2.diffuseTexture.hasAlpha = true; //显示为透明
+            material2.backFaceCulling = false; //使透明在背面也显示贴图，而不是裁切后显示为空
+            
+            //正方形左上角，三角形右下角，平行四边形左下角
+            //to build a tree
+            var leaf1 = BABYLON.MeshBuilder.ExtrudePolygon("leaf1",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            leaf1.position = new BABYLON.Vector3(0,1,0);
+            leaf1.rotation = new BABYLON.Vector3(0,Math.PI/4,0);
+            //leaf1.material = material[0];
+            leaf1.material = blankMaterial;
+            leaf1.enableEdgesRendering();
+            leaf1.edgesWidth = 20.0;
+            leaf1.edgesColor = new BABYLON.Color4(0,0,0,1);
+            //leaf1.scaling=new BABYLON.Vector3(Math.sqrt(2),Math.sqrt(2),Math.sqrt(2));
+
+            var leaf2 = BABYLON.MeshBuilder.ExtrudePolygon("leaf2",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            leaf2.position = new BABYLON.Vector3(0,1,10*Math.sqrt(2));
+            leaf2.rotation = new BABYLON.Vector3(0,Math.PI/4,0);
+            //leaf2.material = material[0];
+            leaf2.material = blankMaterial;
+            leaf2.enableEdgesRendering();
+            leaf2.edgesWidth = 20.0;
+            leaf2.edgesColor = new BABYLON.Color4(0,0,0,1);
+            //leaf2.scaling=new BABYLON.Vector3(Math.sqrt(2),Math.sqrt(2),Math.sqrt(2));
+
+            var leaf3 = BABYLON.MeshBuilder.ExtrudePolygon("leaf3",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            leaf3.position = new BABYLON.Vector3(0,1,20*Math.sqrt(2));
+            leaf3.rotation = new BABYLON.Vector3(0,Math.PI/4,0);
+            //leaf3.material = material[0];
+            leaf3.material = blankMaterial;
+            leaf3.enableEdgesRendering();
+            leaf3.edgesWidth = 20.0;
+            leaf3.edgesColor = new BABYLON.Color4(0,0,0,1);
+            //leaf3.scaling=new BABYLON.Vector3(Math.sqrt(2),Math.sqrt(2),Math.sqrt(2));
+
+            var trunktop = BABYLON.MeshBuilder.ExtrudePolygon("trunktop",{shape:shapeSquare, depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            trunktop.position = new BABYLON.Vector3(10*Math.sqrt(2)-10, 1, 0);
+            //trunktop.material = material[1];
+            trunktop.material = blankMaterial;
+            trunktop.enableEdgesRendering();
+            trunktop.edgesWidth = 20.0;
+            trunktop.edgesColor = new BABYLON.Color4(0,0,0,1);
+            //trunktop.scaling = new BABYLON.Vector3(1/Math.sqrt(2),1/Math.sqrt(2),1/Math.sqrt(2));
+
+            var trunkbutton1 = BABYLON.MeshBuilder.ExtrudePolygon("trunkbutton1",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            trunkbutton1.position = new BABYLON.Vector3(10*Math.sqrt(2)-10,1,-40);
+            //trunkbutton1.material = material[2];
+            trunkbutton1.material = blankMaterial;
+            trunkbutton1.enableEdgesRendering();
+            trunkbutton1.edgesWidth = 20.0;
+            trunkbutton1.edgesColor = new BABYLON.Color4(0,0,0,1);
+            //trunkbutton1.scaling = new BABYLON.Vector3(1/Math.sqrt(2),1/Math.sqrt(2),1/Math.sqrt(2));
+            
+            var trunkbutton2 = BABYLON.MeshBuilder.ExtrudePolygon("trunkbutton2",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            trunkbutton2.position = new BABYLON.Vector3(10*Math.sqrt(2)+10,1,-20);
+            //trunkbutton2.material = material[3];
+            trunkbutton2.rotation = new BABYLON.Vector3(0,Math.PI,0);
+            trunkbutton2.material = blankMaterial;
+            trunkbutton2.enableEdgesRendering();
+            trunkbutton2.edgesWidth = 20.0;
+            trunkbutton2.edgesColor = new BABYLON.Color4(0,0,0,1);
+            //trunkbutton2.scaling = new BABYLON.Vector3(1/Math.sqrt(2),1/Math.sqrt(2),1/Math.sqrt(2));
+
+            //to build a farmer
+            var bodybutton = BABYLON.MeshBuilder.ExtrudePolygon("bodybutton",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            bodybutton.position = new BABYLON.Vector3(-(30+20*Math.sqrt(2)),1,-10);
+            //bodybutton.material = material[5];
+            bodybutton.material = blankMaterial;
+            bodybutton.enableEdgesRendering();
+            bodybutton.edgesWidth = 20.0;
+            bodybutton.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var bodytop = BABYLON.MeshBuilder.ExtrudePolygon("bodytop",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            bodytop.position = new BABYLON.Vector3(-30-20*Math.sqrt(2),1,10);
+            bodytop.rotation = new BABYLON.Vector3(0,Math.PI/4,0);
+            //bodytop.material = material[4];
+            bodytop.material = blankMaterial;
+            bodytop.enableEdgesRendering();
+            bodytop.edgesWidth = 20.0;
+            bodytop.edgesColor = new BABYLON.Color4(0,0,0,1);
+            
+            var head = BABYLON.MeshBuilder.ExtrudePolygon("head",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            head.position = new BABYLON.Vector3(-25-10*Math.sqrt(2),1,10+20*Math.sqrt(2));
+            head.rotation = new BABYLON.Vector3(0,Math.PI,0);
+            head.scaling = new BABYLON.Vector3(1/Math.sqrt(2),1/Math.sqrt(2),1/Math.sqrt(2));
+            //head.material = material[0];
+            head.material = blankMaterial;
+            head.enableEdgesRendering();
+            head.edgesWidth = 20.0;
+            head.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var hat = BABYLON.MeshBuilder.ExtrudePolygon("hat",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            hat.position = new BABYLON.Vector3(-35-15*Math.sqrt(2),1,15*Math.sqrt(2));
+            //hat.material = material[1];
+            hat.material = blankMaterial;
+            hat.enableEdgesRendering();
+            hat.edgesWidth = 20.0;
+            hat.edgesColor = new BABYLON.Color4(0,0,0,1);
+ 
+            var legs = BABYLON.MeshBuilder.ExtrudePolygon("legs",{shape:shapeSquare, depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            legs.position = new BABYLON.Vector3(-(30+20*Math.sqrt(2)),1,-10);
+            legs.rotation = new BABYLON.Vector3(0,-Math.PI/4,0);
+            //legs.material = material[2];
+            legs.scaling = new BABYLON.Vector3(1/Math.sqrt(2),1/Math.sqrt(2),1/Math.sqrt(2));
+            legs.material = blankMaterial;
+            legs.enableEdgesRendering();
+            legs.edgesWidth = 20.0;
+            legs.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var feet = BABYLON.MeshBuilder.ExtrudePolygon("feet",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            feet.position = new BABYLON.Vector3(-20-20*Math.sqrt(2),1,-20);
+            feet.rotation = new BABYLON.Vector3(0,-Math.PI,-Math.PI);
+            feet.scaling = new BABYLON.Vector3(1/Math.sqrt(2),1/Math.sqrt(2),1/Math.sqrt(2));
+            feet.material = blankMaterial;
+            feet.enableEdgesRendering();
+            feet.edgesWidth = 20.0;
+            feet.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            //to built a rabbit
+            var rhead= BABYLON.MeshBuilder.ExtrudePolygon("rhead",{shape:shapeSquare, depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            rhead.position = new BABYLON.Vector3(35,1,-30);
+            rhead.scaling = new BABYLON.Vector3(1/4,1/4,1/4);
+            rhead.rotation = new BABYLON.Vector3(0,-Math.PI/4,0);
+            //rhead.material = material[3];
+            rhead.material = blankMaterial;
+            rhead.enableEdgesRendering();
+            rhead.edgesWidth = 20.0;
+            rhead.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var ears = BABYLON.MeshBuilder.ExtrudePolygon("ears",{shape:shapePara, depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            ears.position = new BABYLON.Vector3(35+2.5*Math.sqrt(2),1,2.5*Math.sqrt(2)-30);
+            ears.scaling = new BABYLON.Vector3(1/4,1/4,1/4);
+            //ears.material = material[4];
+            ears.material = blankMaterial;
+            ears.enableEdgesRendering();
+            ears.edgesWidth = 20.0;
+            ears.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var rarm = BABYLON.MeshBuilder.ExtrudePolygon("rarm",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            rarm.position = new BABYLON.Vector3(35,1,-5*Math.sqrt(2)-30);
+            rarm.rotation = new BABYLON.Vector3(0,Math.PI/4,0);
+            rarm.scaling = new BABYLON.Vector3(1/2,1/2,1/2);
+            //rarm.material = material[5];
+            rarm.material = blankMaterial;
+            rarm.enableEdgesRendering();
+            rarm.edgesWidth = 20.0;
+            rarm.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var rfeet = BABYLON.MeshBuilder.ExtrudePolygon("rfeet",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            rfeet.position = new BABYLON.Vector3(25+15*Math.sqrt(2),1,-40);
+            rfeet.rotation = new BABYLON.Vector3(0,Math.PI/4,0);
+            rfeet.scaling = new BABYLON.Vector3(1/2*Math.sqrt(2)-1/2,1/2*Math.sqrt(2)-1/2,1/2*Math.sqrt(2)-1/2);
+            //rfeet.material = material[6];
+            rfeet.material = blankMaterial;
+            rfeet.enableEdgesRendering();
+            rfeet.edgesWidth = 20.0;
+            rfeet.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var bodyleft = BABYLON.MeshBuilder.ExtrudePolygon("bodyleft",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            bodyleft.position = new BABYLON.Vector3(35+5*Math.sqrt(2),1,-30);
+            bodyleft.rotation = new BABYLON.Vector3(0,Math.PI/2,0);
+            bodyleft.scaling = new BABYLON.Vector3(1/2,1/2,1/2);
+            //bodyleft.material = material[0];
+            bodyleft.material = blankMaterial;
+            bodyleft.enableEdgesRendering();
+            bodyleft.edgesWidth = 20.0;
+            bodyleft.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var bodyright = BABYLON.MeshBuilder.ExtrudePolygon("bodyright",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            bodyright.position = new BABYLON.Vector3(45+5*Math.sqrt(2),1,-30);
+            bodyright.rotation = new BABYLON.Vector3(0,3*Math.PI/4,0);
+            bodyright.scaling = new BABYLON.Vector3(Math.sqrt(2)/4,Math.sqrt(2)/4,Math.sqrt(2)/4);
+            //bodyright.material = material[1];
+            bodyright.material = blankMaterial;
+            bodyright.enableEdgesRendering();
+            bodyright.edgesWidth = 20.0;
+            bodyright.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            var tail = BABYLON.MeshBuilder.ExtrudePolygon("tail",{shape:shapeTri,depth:0.01, sideOrientation: BABYLON.Mesh.DOUBLESIDE}, scene);
+            tail.position = new BABYLON.Vector3(50+5*Math.sqrt(2),1,-35);
+            tail.rotation = new BABYLON.Vector3(0,Math.PI/8,0);
+            tail.scaling = new BABYLON.Vector3(1/2*Math.sqrt(2)-1/2,1/2*Math.sqrt(2)-1/2,1/2*Math.sqrt(2)-1/2);
+            tail.material = blankMaterial;
+            tail.enableEdgesRendering();
+            tail.edgesWidth = 20.0;
+            tail.edgesColor = new BABYLON.Color4(0,0,0,1);
+
+            
+
+            // Our built-in 'ground' shape. Params: name, width, depth, subdivs, scene
+            var ground = BABYLON.Mesh.CreateGround("ground1", 150, 150, 2, scene);
+            ground.material = material2;
+
+            
+
+            return scene;
+        }
+        
+        
+
+        scene=createScene();//调用函数
+        
+        //注册一个重复渲染场景
+        engine.runRenderLoop(function(){
+            scene.render();
+        })
+
+          // 监测浏览器/画布大小改变事件
+        window.addEventListener("resize",function()
+        {
+            engine.resize();
+        })
+
+
+
+    </script>
+
+
+
+</body>
