@@ -15,7 +15,7 @@ var matrix = BABYLON.Matrix.Compose(
 
     BABYLON.Quaternion.Identity(),//旋转矩阵，暂不考虑，为单位阵
 
-    new BABYLON.Vector3(-35, 0, -10),//平移向量，构建平移矩阵
+    new BABYLON.Vector3(-30, 0, 0),//平移向量，构建平移矩阵
 
 );
 
