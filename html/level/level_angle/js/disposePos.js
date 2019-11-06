@@ -8,15 +8,19 @@
         {
             var m = scene.getMeshByID(ids[i]);
             console.log("Dispose");
+
             m.dispose();
 
             path=[];
             
             line=scene.getMeshByName('line'+m.id);
             line.isVisible=false;
-            // line.isDisposed=false;
+            scene.meshes.pop(line);
+
+            //line.isDisposed=false;
             //line.isActiveMesh=false;
             
+            //line.dispose();
             
 
 

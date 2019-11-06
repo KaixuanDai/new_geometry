@@ -2,42 +2,45 @@
 // document.write("<script language=javascript src='/js/scene.js'></script>");
 
 function judge(id) {
+    
     var inMesh = scene.getMeshByID(id);
+    
+    var randMaterial = new BABYLON.StandardMaterial('randMat', scene);
+    randMaterial.diffuseColor = BABYLON.Color3.Random();
     
     // var pos = m.getAbsolutePosition();
     // var state = inMesh.state;
+
 
     // inMesh=scene.getMeshByID('box2');
     var origin = inMesh.position;//起点
     var forward = new BABYLON.Vector3(1, 0, 1);//出射方向
     var length = 2;//长度
-
     var ray = new BABYLON.Ray( new BABYLON.Vector3(origin.x, origin.y-0.1, origin.z), forward, length);
 
     // let rayHelper = new BABYLON.RayHelper(ray);
     // rayHelper.show(scene);
 
     var pickinfo = scene.pickWithRay(ray);
-    var randMaterial = new BABYLON.StandardMaterial('redMat', scene);
-    randMaterial.diffuseColor = BABYLON.Color3.Random();
-
-
-
-
+    
 
     if (pickinfo.hit) {
         
         var pickMesh = pickinfo.pickedMesh;
         
-        if(pickMesh.id==inMesh.state.slice(1,))
+
+        
+
+        if(pickMesh.id.toString().slice(4,)==inMesh.state.slice(1,))
         {
-            console.log(pickMesh.id);
             
             pickMesh.material=randMaterial;
-            var music = new BABYLON.Sound("music", "../../audio/win1.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
+            var music = new BABYLON.Sound("music", "/../audio/win1.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
             
             afterJudge(id)
         }
+
+
         else if(pickMesh.id=='level_next')
         {
             url=window.location.pathname
@@ -114,6 +117,6 @@ function afterJudge(id) {
     //m.isVisible=false;
     m.dispose();
 
-    createShapePick(i);
+    createShape(i);
 
 }

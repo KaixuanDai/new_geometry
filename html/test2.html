@@ -58,7 +58,7 @@
         <canvas id="renderCanvas"></canvas>		
     </main>
     
-    <script src="/js/scene_level_add.js"></script>
+    <script src="/js/scene_ray_example.js"></script>
     <script src="/js/basic.js"></script>
 
     <!-- <script src="/js/basic.js"></script> -->
@@ -85,7 +85,7 @@
         //创建场景
         scene = createScene();
         //注册一个重复渲染场景
-        engine.runRenderLoop(function () {
+        engine.runRenderLoop(function () { 
             scene.render();
         })
 

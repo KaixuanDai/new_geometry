@@ -18,6 +18,7 @@ function judge(id) {
     // rayHelper.show(scene);
 
     var pickinfo = scene.pickWithRay(ray);
+    
     var randMaterial = new BABYLON.StandardMaterial('redMat', scene);
     randMaterial.diffuseColor = BABYLON.Color3.Random();
 

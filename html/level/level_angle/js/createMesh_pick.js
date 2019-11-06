@@ -36,7 +36,10 @@ function createShapePick(id)//id，位置参数
     
     console.log("Create Circle");
     
-    createLink(cir);
+    var lineMesh=createLink(cir);
+
+    // var cir = BABYLON.Mesh.MergeMeshes([cir, lineMesh]);
+
 
 }
 
@@ -65,11 +68,6 @@ function createLink(mesh) {
         //path = [];
     
         updatePath(mesh);
-        //console.log(path[0],path[1]);
-        
-        // getAngle(true_cir_center.position.x,true_cir_center.position.z,mesh.position.x,mesh.position.z,true_cir_bottom.position.x,true_cir_bottom.position.z);
-        
-        //getAngle(mesh.position.x,mesh.position.z,0.25,-13.5,16,-13.5);
 
         if(path.length>1)
         {
@@ -80,6 +78,9 @@ function createLink(mesh) {
         }
         
     });
+
+
+    return linesMesh;
 
 }
 
@@ -97,3 +98,5 @@ function createLink(mesh) {
     };
 
     
+
+   

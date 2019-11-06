@@ -69,7 +69,7 @@ function getAllmeshid() {
 function getArrDifference(arr1, arr2) {
     var result = [];
 
-    if (arr1.length != 0 && arr2.length != 0) {
+    if (arr1.length != 0 || arr2.length != 0) {
         // return arr1.concat(arr2).filter(function (v, i, arr) {
 
         //     return arr.indexOf(v) === arr.lastIndexOf(v);
@@ -120,8 +120,8 @@ function dataHandle(data, width, height) {
         for (i in data.tracks) {
             if (data.tracks[i].x >= -20 && data.tracks[i].x <= 20  && data.tracks[i].y >= -20  && data.tracks[i].y <= 20 ) {
 
-                var x = data.tracks[i]["x"];
-                var z = -data.tracks[i]["y"];
+                var z = data.tracks[i]["x"];
+                var x = data.tracks[i]["y"];
                 var h = data.tracks[i]["height"];
                 // var confidence = data.tracks[i]["confidence"];
                 var id = data.tracks[i]["id"];

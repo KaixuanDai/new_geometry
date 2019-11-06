@@ -151,7 +151,7 @@ var createScene = function () {
     true_rec.edgesWidth = 20.0;
     true_rec.edgesColor = new BABYLON.Color4(0, 0, 1, 1);
 
-
+  
 
     var true_cir = BABYLON.MeshBuilder.CreateCylinder("truecir", {height:0.2, diameter:6,tessellation: 99}, scene);         
     true_cir.material=blankMaterial;

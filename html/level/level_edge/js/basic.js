@@ -9,11 +9,12 @@ var realHeight;
 
 // var pos;
 // document.write("<script language=javascript src='/js/scene.js'></script>");
-document.write("<script language=javascript src='/js/createMesh_pick.js'></script>");
-document.write("<script language=javascript src='/js/changePos.js'></script>");
-document.write("<script language=javascript src='/js/disposePos.js'></script>");
-document.write("<script language=javascript src='/js/posJudge.js'></script>");
-document.write("<script language=javascript src='/js/shpChange.js'></script>");
+document.write("<script language=javascript src='./js/createMesh_pick.js'></script>");
+document.write("<script language=javascript src='./js/createMesh.js'></script>");
+document.write("<script language=javascript src='./js/changePos.js'></script>");
+document.write("<script language=javascript src='./js/disposePos.js'></script>");
+document.write("<script language=javascript src='./js/posJudge.js'></script>");
+document.write("<script language=javascript src='./js/shpChange.js'></script>");
 
 
 
@@ -53,7 +54,7 @@ function getAllmeshid() {
         var m = scene.meshes[i];
         var v = m.isVisible;
         // if (v == true) {
-            if (m.state=="users"||m.state=="utruebox"||m.state=="utruetri1"||m.state=="utruetri2"||m.state=="utruetri3"||m.state=="utruetri4"||m.state=="utruetri5"||m.state=="utruepara")//避免场景中其他初始mesh混入
+            if (m.state=="ubox_top"||m.state=="ubox_bottom"||m.state=="ubox_left"||m.state=="ubox_right")//避免场景中其他初始mesh混入
             {
                 sceneIds.push(parseInt(scene.meshes[i].id));
             }
@@ -67,17 +68,34 @@ function getAllmeshid() {
 //比较两个数组的不同，求差
 function getArrDifference(arr1, arr2) {
 
-    if (arr1.length != 0 && arr2.length != 0) {
-        return arr1.concat(arr2).filter(function (v, i, arr) {
+    var result = [];
 
-            return arr.indexOf(v) === arr.lastIndexOf(v);
+    if (arr1.length != 0 || arr2.length != 0) {
+          for(var i = 0; i < arr1.length; i++){
 
+            var num = arr1[i]
+            var isExist = false;
+            
+            for(var j = 0; j < arr2.length; j++){
+                
+                var n = arr2[j]
+                
+                if(n == num){
+                    isExist = true;
+                    break;
 
-        });
+                }
+            }
+            if(!isExist){
+                console.log('diff',num);
+                result.push(num);
+            }
+        }
+        return result;	
     }
+
     else {
-        var a = [];
-        return a;
+        return result;
     }
 }
 
@@ -94,8 +112,8 @@ function dataHandle(data, width, height) {
         for (i in data.tracks) {
             if (data.tracks[i].x >= -20 && data.tracks[i].x <= 20 && data.tracks[i].y >= -20 && data.tracks[i].y <= 20) {
 
-                var x = data.tracks[i]["x"];
-                var z = -data.tracks[i]["y"];
+                var z = data.tracks[i]["x"];
+                var x = data.tracks[i]["y"];
                 var h = data.tracks[i]["height"];
                 // var confidence = data.tracks[i]["confidence"];
                 var id = data.tracks[i]["id"];
@@ -128,8 +146,8 @@ function dataJudge(realPos,id) {
     if (sceneIds.indexOf(id) == -1)//id在当前场景数组中不存在,添加新的对象
     {
 
-        //createShape(id, realPos);
-        createShapePick(id, realPos);
+        createShape(id, realPos);
+        //createShapePick(id, realPos);
 
     }
     else {
