@@ -1,8 +1,11 @@
 //判断函数，既要判断位置，还要判断形状
 // document.write("<script language=javascript src='/js/scene.js'></script>");
 
+var hitornot = new Array(0, 0, 0, 0, 0, 0, 0)
+
 function judge(id) {
     
+
     var inMesh = scene.getMeshByID(id);
     
     var randMaterial = new BABYLON.StandardMaterial('randMat', scene);
@@ -31,86 +34,52 @@ function judge(id) {
 
         
 
-        if(pickMesh.id.toString().slice(4,)==inMesh.state.slice(1,))
+        if(pickMesh.state.toString().slice(4,)==inMesh.state.slice(1,))
         {
             
             pickMesh.material=randMaterial;
             var music = new BABYLON.Sound("music", "/../audio/win1.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
+
+
+            var idstr = pickMesh.id;
+            idstr = idstr.split("");
+            idstr = idstr[idstr.length - 1];
+            idstr = parseInt(idstr)
+            hitornot[idstr - 1] = 1; //id为pickmesh.id的图形被填充
             
-            afterJudge(id)
+            afterJudge(id,hitornot);
         }
-
-
-        else if(pickMesh.id=='level_next')
-        {
-            url=window.location.pathname
-            head=url.slice(0,23)
-            
-            page=url.slice(23,24)
-            new_page=parseInt(page)+1
-        
-            new_url=url.replace(page,new_page)
-
-            var t1 = window.setInterval(function()
-            {
-                window.location.href= new_url;
-             
-            },10000); 
-            
-            url='';
-            
-        }
-        else if(pickMesh.id=='level_last')
-        {
-            url=window.location.pathname
-            
-            head=url.slice(0,23)
-            
-            page=url.slice(23,24)
-            new_page=parseInt(page)-1
-        
-            new_url=url.replace(page,new_page)
-
-            var t1 = window.setInterval(function()
-            {
-                window.location.href=new_page;
-             
-            },10000); 
-            
-            url='';
-
-        }
- 
-
-        
-        
-        // if (m.state == inMesh.state) {
-            
-        //     m.material = redMaterial
-        //     console.log(m.name);
-        // }
-        // console.log(m.name);
     }
-
-    //延迟跳转，避免跳转过快
-    // var t1 = window.setInterval(function () {
-
-    //     if (Math.abs(m.position.x - nextBut.position.x) <= tol && Math.abs(m.position.z - nextBut.position.z) <= tol) {
-    //         window.location.href = 'Level-1.html';
-    //         console.log("link to next")
-    //         var music = new BABYLON.Sound("music", "../audio/win.mp3", scene, null, { loop: false, autoplay: true, spatialSound: true });
-
-    //     }
-
-    // }, 10000);
-
 }
 
 
+function pagesLink() {
+
+  
+    var new_url = '/html/level/level_angle/level_add_angle.html';
+    window.location.href = new_url;
+    
+}
 
 
 function afterJudge(id) {
     
+
+    var j = 1;
+
+    for (var i = 0; i < 4; i++) {
+        if (hitornot[i] == 0) {
+            j = 0;
+        }
+    }
+    if (j == 1) {
+        winwin();
+        setTimeout("pagesLink()",15000);
+        
+    }
+
+
+
     var i = id;
     var m = scene.getMeshByID(id);
     // var s = m.state;

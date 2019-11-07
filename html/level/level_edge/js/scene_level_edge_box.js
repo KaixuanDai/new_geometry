@@ -67,7 +67,7 @@ var createScene = function () {
     ];
 
   
-    var true_box_top = BABYLON.MeshBuilder.ExtrudePolygon("truebox_top", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_box_top = BABYLON.MeshBuilder.ExtrudePolygon("truebox_top1", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_box_top.material = blankMaterial;
     true_box_top.position = new BABYLON.Vector3(-10, 1, 10)
     true_box_top.scaling = new BABYLON.Vector3(13, 1, 1);
@@ -77,7 +77,7 @@ var createScene = function () {
     true_box_top.edgesWidth = 20.0;
     true_box_top.edgesColor = new BABYLON.Color4(0, 0, 1, 0.5);
 
-    var true_box_bottom = BABYLON.MeshBuilder.ExtrudePolygon("truebox_bottom", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_box_bottom = BABYLON.MeshBuilder.ExtrudePolygon("truebox_bottom2", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_box_bottom.material = blankMaterial;
     true_box_bottom.position = new BABYLON.Vector3(-10, 1, -7)
     true_box_bottom.scaling = new BABYLON.Vector3(13, 1, 1);
@@ -88,7 +88,7 @@ var createScene = function () {
     true_box_bottom.edgesColor = new BABYLON.Color4(1, 0, 0, 1);
 
 
-    var true_box_left = BABYLON.MeshBuilder.ExtrudePolygon("truebox_left", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_box_left = BABYLON.MeshBuilder.ExtrudePolygon("truebox_left3", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_box_left.material = blankMaterial;
     true_box_left.position = new BABYLON.Vector3(-10, 1, 11.4)
     true_box_left.scaling = new BABYLON.Vector3(13, 1, 1);
@@ -98,7 +98,7 @@ var createScene = function () {
     true_box_left.edgesWidth = 20.0;
     true_box_left.edgesColor = new BABYLON.Color4(0, 1, 0, 1);
 
-    var true_box_right = BABYLON.MeshBuilder.ExtrudePolygon("truebox_right", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_box_right = BABYLON.MeshBuilder.ExtrudePolygon("truebox_right4", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_box_right.material = blankMaterial;
     true_box_right.position = new BABYLON.Vector3(6.8, 1, 11.4)
     true_box_right.scaling = new BABYLON.Vector3(13, 1, 1);

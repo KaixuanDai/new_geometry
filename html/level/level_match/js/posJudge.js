@@ -1,33 +1,11 @@
 //判断函数，既要判断位置，还要判断形状
 // document.write("<script language=javascript src='/js/scene.js'></script>");
-document.write("<script language=javascript src='/js/winEffects.js'></script>");
-
-var sign = false;
-
-function linkSign() {
-
-
-
-    if (sign == true) {
-        sign = false;
-    }
-
-    else if (sign == false) {
-        sign = true;
-    }
-
-    // console.log(sign);
-
-    return sign;
-
-}
-
+//document.write("<script language=javascript src='/js/winEffects.js'></script>");
 
 var inMesh;
 var pickinfo;
 var pickMesh;
-// var hitornot=[0,0,0,0,0,0]
-var hitornot = new Array(0, 0, 0, 0, 0, 0, 0)
+var hitornot = new Array(0, 0, 0, 0)
 
 
 function judge(id, hitornot) {
@@ -77,15 +55,7 @@ function judge(id, hitornot) {
 
         }
 
-        if (sign == true) {
-            //pagesLink(pickMesh);
-        }
-
-
     }
-
-
-
 }
 
 
@@ -117,7 +87,7 @@ function pagesLink() {
 }
 
 
-function afterJudge(id) {
+function afterJudge(id,hitornot) {
     //判断是否全部填完
 
     var j = 1;

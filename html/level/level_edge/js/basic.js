@@ -15,6 +15,7 @@ document.write("<script language=javascript src='./js/changePos.js'></script>");
 document.write("<script language=javascript src='./js/disposePos.js'></script>");
 document.write("<script language=javascript src='./js/posJudge.js'></script>");
 document.write("<script language=javascript src='./js/shpChange.js'></script>");
+document.write("<script language=javascript src='/js/winEffects.js'></script>");
 
 
 
