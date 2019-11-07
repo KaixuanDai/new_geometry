@@ -18,26 +18,7 @@ var createScene = function () {
 
     light.intensity = 0.95;
 
-    //创建地面
-   // var ground = BABYLON.Mesh.CreateGround("ground1", 50, 35, 2, scene);
-//     var materialGround = new BABYLON.StandardMaterial("texture1", scene);
-//     materialGround.material = materialGround;
-//     materialGround.alpha = 1;
-//     materialGround.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
-//     materialGround.diffuseTexture = new BABYLON.Texture("../../img/ground.jpg", scene);
-//    // ground.material = materialGround;
-
-//     //设置skybox
-//   //  var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
-//     var skyboxMaterial = new BABYLON.StandardMaterial("../skyBox", scene);
-//     skyboxMaterial.backFaceCulling = false;
-//     skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("../../img/skyBox/5", scene);
-//     skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-//     skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-//     skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-//     skyboxMaterial.disableLighting = true;
- //   skybox.material = skyboxMaterial;
-
+    
     //设置背景环境
     BABYLON.SceneLoader.ImportMesh("","/img/","cloud.glb",scene,function(newMeshes/*,particleSysterms,skeletons*/){
         
@@ -97,32 +78,6 @@ var createScene = function () {
         new BABYLON.Vector3(-3, 0.5, 1),
         new BABYLON.Vector3(-1, 0.5, 1),
     ];
-    var levelChange = [
-        new BABYLON.Vector3(0, 0, 0),
-        new BABYLON.Vector3(3, 0, 0),
-        new BABYLON.Vector3(3, 0, -1),
-
-        new BABYLON.Vector3(6, 0, 1),
-        new BABYLON.Vector3(3, 0, 3),
-
-        new BABYLON.Vector3(3, 0, 2),
-        new BABYLON.Vector3(0, 0, 2),
-        new BABYLON.Vector3(0, 0, 0),
-    ];
-
-
-
-
-    // var level_next = BABYLON.MeshBuilder.ExtrudePolygon("level_next", { shape: levelChange, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
-    // level_next.position = new BABYLON.Vector3(18, 1, 0);
-    // level_next.material = randMaterial;
-
-    // var level_last = BABYLON.MeshBuilder.ExtrudePolygon("level_last", { shape: levelChange, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
-    // level_last.position = new BABYLON.Vector3(-18, 1, 2);
-    // level_last.rotation = new BABYLON.Vector3(0, Math.PI, 0);
-    // level_last.material = randMaterial;
-
-
 
 
     //正确位置的形状
@@ -199,7 +154,7 @@ var createScene = function () {
     true_para.enableEdgesRendering();
     true_para.edgesWidth = 20.0;
     true_para.edgesColor = new BABYLON.Color4(0, 0, 0, 1);
-
+ 
 
 
     //待选择的几何形状

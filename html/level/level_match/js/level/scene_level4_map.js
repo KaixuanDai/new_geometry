@@ -18,26 +18,7 @@ var createScene = function () {
 
     light.intensity = 0.95;
 
-      //创建地面
-   // var ground = BABYLON.Mesh.CreateGround("ground1", 50, 35, 2, scene);
-//     var materialGround = new BABYLON.StandardMaterial("texture1", scene);
-//     materialGround.material = materialGround;
-//     materialGround.alpha = 1;
-//     materialGround.diffuseColor = new BABYLON.Color3(1.0, 1.0, 1.0);
-//     materialGround.diffuseTexture = new BABYLON.Texture("../../img/ground.jpg", scene);
-//    // ground.material = materialGround;
-
-//     //设置skybox
-//   //  var skybox = BABYLON.Mesh.CreateBox("skyBox", 100.0, scene);
-//     var skyboxMaterial = new BABYLON.StandardMaterial("../skyBox", scene);
-//     skyboxMaterial.backFaceCulling = false;
-//     skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("../../img/skyBox/5", scene);
-//     skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
-//     skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
-//     skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
-//     skyboxMaterial.disableLighting = true;
- //   skybox.material = skyboxMaterial;
-
+      
     //设置背景环境
     BABYLON.SceneLoader.ImportMesh("","/img/","cloud.glb",scene,function(newMeshes/*,particleSysterms,skeletons*/){
         
@@ -293,7 +274,7 @@ var createScene = function () {
     true_tri5.edgesWidth = 20.0;
     true_tri5.edgesColor = new BABYLON.Color4(0, 0, 0, 1);
 
-    var true_box = BABYLON.MeshBuilder.ExtrudePolygon("truebox", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_box = BABYLON.MeshBuilder.ExtrudePolygon("truebox6", { shape: box, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_box.material = blankMaterial;
     true_box.position = new BABYLON.Vector3(0, 1, 2)
     true_box.scaling = new BABYLON.Vector3(1 * 2, 1, 1 * 2);
@@ -303,7 +284,7 @@ var createScene = function () {
     true_box.edgesWidth = 20.0;
     true_box.edgesColor = new BABYLON.Color4(0, 0, 0, 1);
 
-    var true_para = BABYLON.MeshBuilder.ExtrudePolygon("truepara", { shape: para, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
+    var true_para = BABYLON.MeshBuilder.ExtrudePolygon("truepara7", { shape: para, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
     true_para.material = blankMaterial;
     true_para.position = new BABYLON.Vector3(0, 0.8, 2)
     true_para.scaling = new BABYLON.Vector3(1 * 2, 1, 1 * 2);

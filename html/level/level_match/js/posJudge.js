@@ -2,20 +2,18 @@
 // document.write("<script language=javascript src='/js/scene.js'></script>");
 document.write("<script language=javascript src='/js/winEffects.js'></script>");
 
-var sign=false;
+var sign = false;
 
 function linkSign() {
-    
 
-    
-    if(sign==true)
-    {
-        sign=false;
+
+
+    if (sign == true) {
+        sign = false;
     }
 
-    else if(sign==false)
-    {
-        sign=true;
+    else if (sign == false) {
+        sign = true;
     }
 
     // console.log(sign);
@@ -24,17 +22,16 @@ function linkSign() {
 
 }
 
-setInterval(pagesLink, 15000)
 
 var inMesh;
 var pickinfo;
 var pickMesh;
 // var hitornot=[0,0,0,0,0,0]
-var hitornot=new Array(0,0,0,0,0,0)
+var hitornot = new Array(0, 0, 0, 0, 0, 0, 0)
 
 
-function judge(id,hitornot) {
-   inMesh = scene.getMeshByID(id);
+function judge(id, hitornot) {
+    inMesh = scene.getMeshByID(id);
 
     // var pos = m.getAbsolutePosition();
     // var state = inMesh.state;
@@ -58,34 +55,33 @@ function judge(id,hitornot) {
 
     if (pickinfo.hit) {
 
-        pickMesh=pickinfo.pickedMesh;
+        pickMesh = pickinfo.pickedMesh;
 
         if (pickMesh.id == inMesh.state.slice(1)) {
-            
+
             console.log(pickMesh.id);
 
-            
-            var idstr=pickMesh.id;
-            idstr=idstr.split("");
-            idstr=idstr[idstr.length-1];
-            idstr=parseInt(idstr)
-            hitornot[idstr-1] = 1; //id为pickmesh.id的图形被填充
-            
+
+            var idstr = pickMesh.id;
+            idstr = idstr.split("");
+            idstr = idstr[idstr.length - 1];
+            idstr = parseInt(idstr)
+            hitornot[idstr - 1] = 1; //id为pickmesh.id的图形被填充
+
             pickMesh.material = randMaterial;
             var music = new BABYLON.Sound("music", "/audio/win1.mp3", scene, null, { loop: false, autoplay: true, spatialSound: true });
-            
+
             // t = setInterval("pagesLink()", 5000);
-            
-            afterJudge(id,hitornot);
+
+            afterJudge(id, hitornot);
 
         }
 
-        if (sign==true)
-            {
-                //pagesLink(pickMesh);
-            }
+        if (sign == true) {
+            //pagesLink(pickMesh);
+        }
 
-        
+
     }
 
 
@@ -97,64 +93,48 @@ function judge(id,hitornot) {
 function pagesLink() {
 
     //console.log('link!!!')
-    
-    if(pickMesh!=null)
+
+    var url = window.location.pathname;
+    //var head = url.slice(0, 23);
+
+    var page = url.slice(35, 36);
+    var new_page = parseInt(page) + 1;
+
+    if(new_page<7)
     {
-        if (pickMesh.id == 'level_next') {
+        var new_url = url.replace(page, new_page);
         
-            url = window.location.pathname
-            head = url.slice(0, 23)
-
-            page = url.slice(23, 24)
-            new_page = parseInt(page) + 1
-
-            new_url = url.replace(page, new_page)
-
-            window.location.href = new_url;
-
-
+        window.location.href = new_url;
+    }
+    else
+    {
+        var new_url = '/html/level/level_edge/level_edge_box.html';
+        window.location.href = new_url;
     }
 
-    else if (pickMesh.id == 'level_last') {
 
-            url = window.location.pathname
 
-            head = url.slice(0, 23)
-
-            page = url.slice(23, 24)
-
-            new_page = parseInt(page) - 1
-
-            new_url = url.replace(page, new_page)
-            
-            window.location.href = new_url;
-
-        
-
-    }
 }
-}
+
 
 function afterJudge(id) {
     //判断是否全部填完
-    //var j = 1;
-    for(var i = 0;i < 7 ;i++)
-    {
-        if(hitornot[i] = 0)
-        {
+
+    var j = 1;
+
+    for (var i = 0; i < 7; i++) {
+        if (hitornot[i] == 0) {
             j = 0;
         }
     }
-    if(j = 1)
-    {
+    if (j == 1) {
         winwin();
+        setTimeout("pagesLink()",10000);
+        
     }
-    //——-------
 
     var i = id;
     var m = scene.getMeshByID(id);
-    // var s = m.state;
-    //m.isVisible=false;
     m.dispose();
 
     createShapePick(i);

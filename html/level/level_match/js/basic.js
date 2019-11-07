@@ -67,17 +67,34 @@ function getAllmeshid() {
 //比较两个数组的不同，求差
 function getArrDifference(arr1, arr2) {
 
-    if (arr1.length != 0 && arr2.length != 0) {
-        return arr1.concat(arr2).filter(function (v, i, arr) {
+    var result = [];
 
-            return arr.indexOf(v) === arr.lastIndexOf(v);
+    if (arr1.length != 0 || arr2.length != 0) {
+          for(var i = 0; i < arr1.length; i++){
 
+            var num = arr1[i]
+            var isExist = false;
+            
+            for(var j = 0; j < arr2.length; j++){
+                
+                var n = arr2[j]
+                
+                if(n == num){
+                    isExist = true;
+                    break;
 
-        });
+                }
+            }
+            if(!isExist){
+                console.log('diff',num);
+                result.push(num);
+            }
+        }
+        return result;	
     }
+
     else {
-        var a = [];
-        return a;
+        return result;
     }
 }
 
@@ -94,8 +111,8 @@ function dataHandle(data, width, height) {
         for (i in data.tracks) {
             if (data.tracks[i].x >= -20 && data.tracks[i].x <= 20 && data.tracks[i].y >= -20 && data.tracks[i].y <= 20) {
 
-                var x = data.tracks[i]["x"];
-                var z = -data.tracks[i]["y"];
+                var z = data.tracks[i]["x"];
+                var x = data.tracks[i]["y"];
                 var h = data.tracks[i]["height"];
                 // var confidence = data.tracks[i]["confidence"];
                 var id = data.tracks[i]["id"];
