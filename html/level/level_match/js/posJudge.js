@@ -5,7 +5,7 @@
 var inMesh;
 var pickinfo;
 var pickMesh;
-var hitornot = new Array(0, 0, 0, 0)
+var hitornot = new Array(0, 0, 0, 0,0,0,0);
 
 
 function judge(id, hitornot) {
@@ -47,7 +47,7 @@ function judge(id, hitornot) {
             hitornot[idstr - 1] = 1; //id为pickmesh.id的图形被填充
 
             pickMesh.material = randMaterial;
-            var music = new BABYLON.Sound("music", "/audio/win1.mp3", scene, null, { loop: false, autoplay: true, spatialSound: true });
+            var music = new BABYLON.Sound("music", "/audio/match_win_part.mp3", scene, null, { loop: false, autoplay: true, spatialSound: true });
 
             // t = setInterval("pagesLink()", 5000);
 
@@ -78,7 +78,7 @@ function pagesLink() {
     }
     else
     {
-        var new_url = '/html/level/level_edge/level_edge_box.html';
+        var new_url = '/html/level/level_classification/level_classification.html';
         window.location.href = new_url;
     }
 
@@ -90,9 +90,15 @@ function pagesLink() {
 function afterJudge(id,hitornot) {
     //判断是否全部填完
 
+    var i = id;
+    var m = scene.getMeshByID(id);
+    m.dispose();
+
+    createShapePick(i);
+
     var j = 1;
 
-    for (var i = 0; i < 7; i++) {
+    for (var i = 0; i < hitornot.length; i++) {
         if (hitornot[i] == 0) {
             j = 0;
         }
@@ -103,10 +109,5 @@ function afterJudge(id,hitornot) {
         
     }
 
-    var i = id;
-    var m = scene.getMeshByID(id);
-    m.dispose();
-
-    createShapePick(i);
 
 }

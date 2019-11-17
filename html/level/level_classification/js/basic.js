@@ -9,11 +9,11 @@ var realHeight;
 
 // var pos;
 // document.write("<script language=javascript src='/js/scene.js'></script>");
-document.write("<script language=javascript src='/js/createMesh_pick.js'></script>");
-document.write("<script language=javascript src='/js/changePos.js'></script>");
-document.write("<script language=javascript src='/js/disposePos.js'></script>");
-document.write("<script language=javascript src='/js/posJudge.js'></script>");
-document.write("<script language=javascript src='/js/shpChange.js'></script>");
+document.write("<script language=javascript src='./js/createMesh.js'></script>");
+document.write("<script language=javascript src='./js/changePos.js'></script>");
+document.write("<script language=javascript src='./js/disposePos.js'></script>");
+document.write("<script language=javascript src='./js/posJudge.js'></script>");
+document.write("<script language=javascript src='./js/shpChange.js'></script>");
 
 
 
@@ -22,7 +22,7 @@ document.write("<script language=javascript src='/js/shpChange.js'></script>");
 function dataInput(ip, port) {
     
     //websocket 传输数据
-    var ws = new WebSocket('ws://' + '192.168.1.22' + ':' + port);
+    var ws = new WebSocket('ws://' + '127.0.0.1' + ':' + port);
 
     
     ws.onopen = function () {
@@ -53,7 +53,7 @@ function getAllmeshid() {
         var m = scene.meshes[i];
         var v = m.isVisible;
         // if (v == true) {
-            if (m.state=="users"||m.state=="utruebox"||m.state=="utruetri1"||m.state=="utruetri2"||m.state=="utruetri3"||m.state=="utruetri4"||m.state=="utruetri5"||m.state=="utruepara")//避免场景中其他初始mesh混入
+            if (m.state=="tri"||m.state=="box"||m.state=="rec"||m.state=="cir")//避免场景中其他初始mesh混入
             {
                 sceneIds.push(parseInt(scene.meshes[i].id));
             }
@@ -92,10 +92,10 @@ function dataHandle(data, width, height) {
     }
         var i;
         for (i in data.tracks) {
-            if (data.tracks[i].x >= -2 && data.tracks[i].x <= 2 && data.tracks[i].y >= -2 && data.tracks[i].y <= 2) {
+            if (data.tracks[i].x >= -20 && data.tracks[i].x <= 20 && data.tracks[i].y >= -20 && data.tracks[i].y <= 20) {
 
-                var x = data.tracks[i]["x"];
-                var z = -data.tracks[i]["y"];
+                var z = data.tracks[i]["x"];
+                var x = data.tracks[i]["y"];
                 var h = data.tracks[i]["height"];
                 // var confidence = data.tracks[i]["confidence"];
                 var id = data.tracks[i]["id"];
@@ -129,7 +129,7 @@ function dataJudge(realPos,id) {
     {
 
         //createShape(id, realPos);
-        createShapePick(id, realPos);
+        createShape(id, realPos);
 
     }
     else {

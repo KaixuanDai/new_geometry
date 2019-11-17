@@ -5,7 +5,7 @@ function winwin(){
     var volume = 0.5;
     var playbackRate = 1; //播放速率
     
-    var winmusic = new BABYLON.Sound("winmusic", "/audio/match_win.mp3", scene, null, { loop: false, autoplay: true, spatialSound: true });
+    //var winmusic = new BABYLON.Sound("winmusic", "/audio/match_win.mp3", scene, null, { loop: false, autoplay: true, spatialSound: true });
     
     // winmusic.onended = function(){
     //     if(volume < 2){

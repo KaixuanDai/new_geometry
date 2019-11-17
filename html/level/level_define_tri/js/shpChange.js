@@ -22,16 +22,6 @@ function shpChange(id) {
     var randMaterial = new BABYLON.StandardMaterial('randMat', scene);
     randMaterial.diffuseColor = BABYLON.Color3.Random();
 
-    var hl = new BABYLON.HighlightLayer("hl1", scene);
-
-    var alpha = 0;
-    scene.registerBeforeRender(() => {
-        alpha += 0.1;
-
-        hl.blurHorizontalSize = 0.3 + Math.cos(alpha) * 0.6 + 0.6;        
-        hl.blurVerticalSize = 0.3 + Math.sin(alpha / 3) * 0.6 + 0.6;
-    });
-
     if (pickinfo.hit) {
 
         var pickMesh = pickinfo.pickedMesh;//被碰撞的形状
@@ -52,9 +42,6 @@ function shpChange(id) {
 
                     newMesh.id = id;
                     newMesh.state = "u".concat(pickMesh.state);
-                    
-                    
-                    //hl.addMesh(newMesh, BABYLON.Color3.Random());
 
                     inMesh.dispose();
                     //inMesh.id=id.toString();
@@ -68,7 +55,7 @@ function shpChange(id) {
                     //inMesh.isVisual=false;
 
                     console.log('shape change')
-                    var music = new BABYLON.Sound("music", "/../audio/match_win_pick.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
+                    var music = new BABYLON.Sound("music", "../../audio/win2.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
 
                     //pickMesh.id=99999;
                     //pickMesh.dispose();

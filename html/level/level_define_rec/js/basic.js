@@ -10,11 +10,12 @@ var realHeight;
 // var pos;
 // document.write("<script language=javascript src='/js/scene.js'></script>");
 document.write("<script language=javascript src='./js/createMesh_pick.js'></script>");
+document.write("<script language=javascript src='./js/createMesh.js'></script>");
 document.write("<script language=javascript src='./js/changePos.js'></script>");
 document.write("<script language=javascript src='./js/disposePos.js'></script>");
 document.write("<script language=javascript src='./js/posJudge.js'></script>");
 document.write("<script language=javascript src='./js/shpChange.js'></script>");
-document.write("<script language=javascript src='/js/winEffects.js'></script>");
+document.write("<script language=javascript src='./js/winEffects.js'></script>");
 
 
 
@@ -54,7 +55,7 @@ function getAllmeshid() {
         var m = scene.meshes[i];
         var v = m.isVisible;
         // if (v == true) {
-            if (m.state=="users"||m.state=="utruebox6"||m.state=="utruetri1"||m.state=="utruetri2"||m.state=="utruetri3"||m.state=="utruetri4"||m.state=="utruetri5"||m.state=="utruepara7")//避免场景中其他初始mesh混入
+            if (m.state=="rec")//避免场景中其他初始mesh混入
             {
                 sceneIds.push(parseInt(scene.meshes[i].id));
             }
@@ -146,7 +147,7 @@ function dataJudge(realPos,id) {
     if (sceneIds.indexOf(id) == -1)//id在当前场景数组中不存在,添加新的对象
     {
 
-        //createShape(id, realPos);
+        // createShape(id, realPos);
         createShapePick(id, realPos);
 
     }
@@ -157,7 +158,7 @@ function dataJudge(realPos,id) {
         
         shpChange(id)
 
-        judge(id,hitornot);//对当前的位置做出判断
+        judge(id);//对当前的位置做出判断
 
     }
     sceneIds = [];//清空当前的场景mesh数组

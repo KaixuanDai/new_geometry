@@ -38,7 +38,7 @@ function judge(id) {
         {
             
             pickMesh.material=randMaterial;
-            var music = new BABYLON.Sound("music", "/../audio/win1.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
+            var music = new BABYLON.Sound("music", "/../audio/match_win_part.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
 
 
             var idstr = pickMesh.id;
@@ -56,7 +56,7 @@ function judge(id) {
 function pagesLink() {
 
   
-    var new_url = '/html/level/level_angle/level_add_angle.html';
+    var new_url = '/html/level/level_edge_tri/level_edge_tri.html';
     window.location.href = new_url;
     
 }

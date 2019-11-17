@@ -14,7 +14,6 @@ document.write("<script language=javascript src='./js/changePos.js'></script>");
 document.write("<script language=javascript src='./js/disposePos.js'></script>");
 document.write("<script language=javascript src='./js/posJudge.js'></script>");
 document.write("<script language=javascript src='./js/shpChange.js'></script>");
-document.write("<script language=javascript src='/js/winEffects.js'></script>");
 
 
 
@@ -23,6 +22,7 @@ document.write("<script language=javascript src='/js/winEffects.js'></script>");
 function dataInput(ip, port) {
     
     //websocket 传输数据
+    // var ws = new WebSocket('ws://' + '192.168.1.22' + ':' + port);
     var ws = new WebSocket('ws://' + '127.0.0.1' + ':' + port);
 
     
@@ -54,7 +54,7 @@ function getAllmeshid() {
         var m = scene.meshes[i];
         var v = m.isVisible;
         // if (v == true) {
-            if (m.state=="users"||m.state=="utruebox6"||m.state=="utruetri1"||m.state=="utruetri2"||m.state=="utruetri3"||m.state=="utruetri4"||m.state=="utruetri5"||m.state=="utruepara7")//避免场景中其他初始mesh混入
+            if (m.state=="users"||m.state=="line"||m.state=="utruebox"||m.state=="utruetri1"||m.state=="utruetri2"||m.state=="utruetri3"||m.state=="utruetri4"||m.state=="utruetri5"||m.state=="utruepara")//避免场景中其他初始mesh混入
             {
                 sceneIds.push(parseInt(scene.meshes[i].id));
             }
@@ -67,11 +67,18 @@ function getAllmeshid() {
 
 //比较两个数组的不同，求差
 function getArrDifference(arr1, arr2) {
-
     var result = [];
 
     if (arr1.length != 0 || arr2.length != 0) {
-          for(var i = 0; i < arr1.length; i++){
+        // return arr1.concat(arr2).filter(function (v, i, arr) {
+
+        //     return arr.indexOf(v) === arr.lastIndexOf(v);
+
+
+        // });
+
+
+        for(var i = 0; i < arr1.length; i++){
 
             var num = arr1[i]
             var isExist = false;
@@ -91,6 +98,7 @@ function getArrDifference(arr1, arr2) {
                 result.push(num);
             }
         }
+
         return result;	
     }
 
@@ -110,7 +118,7 @@ function dataHandle(data, width, height) {
     }
         var i;
         for (i in data.tracks) {
-            if (data.tracks[i].x >= -20 && data.tracks[i].x <= 20 && data.tracks[i].y >= -20 && data.tracks[i].y <= 20) {
+            if (data.tracks[i].x >= -20 && data.tracks[i].x <= 20  && data.tracks[i].y >= -20  && data.tracks[i].y <= 20 ) {
 
                 var z = data.tracks[i]["x"];
                 var x = data.tracks[i]["y"];
@@ -155,11 +163,17 @@ function dataJudge(realPos,id) {
 
         changePos(id, realPos);//该id在现有场景数组中存在，更新其位置
         
-        shpChange(id)
 
-        judge(id,hitornot);//对当前的位置做出判断
+        //shpChange(id)
+
+        judge(id);//对当前的位置做出判断
+
+
 
     }
+
+    
+
     sceneIds = [];//清空当前的场景mesh数组
 }
 
@@ -183,17 +197,22 @@ function removeMesh()
 
 
 //删除不再更新的mesh
-function disposePos(ids) {
+// function disposePos(ids) {
 
-    for (var i = 0; i < ids.length; i++) {
-        var m = scene.getMeshByID(ids[i].toString());
-        m.isVisible=false;
-        m.dispose();
-        console.log("Dispose");
-        var index = sceneIds.indexOf(ids[i]);
-        //从场景数组删除
-        if (index > -1) {
-            sceneIds.splice(index, 1);
-        }
-    }
-}         
+//     for (var i = 0; i < ids.length; i++) {
+        
+
+//         var m = scene.getMeshByID(ids[i].toString());
+//         m.isVisible=false;
+//         m.dispose();
+        
+//         console.log("Dispose");
+        
+//         var index = sceneIds.indexOf(ids[i]);
+        
+//         //从场景数组删除
+//         if (index > -1) {
+//             sceneIds.splice(index, 1);
+//         }
+//     }
+// }

@@ -1,7 +1,7 @@
 //判断函数，既要判断位置，还要判断形状
 // document.write("<script language=javascript src='/js/scene.js'></script>");
 
-var hitornot = new Array(1, 0, 0, 0);
+var hitornot = new Array(0, 0, 0, 0)
 
 function judge(id) {
     
@@ -54,9 +54,9 @@ function judge(id) {
 
 
 function pagesLink() {
-
-  
-    var new_url = '/html/level/level_angle_box/level_angle_box.html';
+   
+    
+    var new_url = '/html/level/level_edge_rec/level_edge_rec.html';
     window.location.href = new_url;
     
 }
@@ -67,7 +67,7 @@ function afterJudge(id) {
 
     var j = 1;
 
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < hitornot.length; i++) {
         if (hitornot[i] == 0) {
             j = 0;
         }

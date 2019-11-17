@@ -27,7 +27,7 @@
                 
                 m.setAbsolutePosition(BABYLON.Vector3.TransformCoordinates(pos, matrix));//坐标的投影变换
                 
-                //console.log("Change",m.id);
+                console.log("Change");
 
             }
     
