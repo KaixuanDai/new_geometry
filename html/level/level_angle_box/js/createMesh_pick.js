@@ -5,7 +5,9 @@ function createShapePick(id)//id，位置参数
     var whiteMaterial = new BABYLON.StandardMaterial('whiteMat', scene);
     whiteMaterial.diffuseColor = BABYLON.Color3.FromInts(147,112,219);
 
-
+    var randMaterial = new BABYLON.StandardMaterial('redMat', scene);
+    randMaterial.diffuseColor = BABYLON.Color3.Random();
+    
     var faceUV = new Array(6);
 
        //set all values to zero
@@ -28,11 +30,23 @@ function createShapePick(id)//id，位置参数
     };
 
 
+    var hl = new BABYLON.HighlightLayer("hl1", scene);
+
+    var alpha = 0;
+    scene.registerBeforeRender(() => {
+        alpha += 0.1;
+
+        hl.blurHorizontalSize = 0.3 + Math.cos(alpha) * 0.6 + 0.6;        
+        hl.blurVerticalSize = 0.3 + Math.sin(alpha / 3) * 0.6 + 0.6;
+    });
+
     var cir = BABYLON.MeshBuilder.CreateCylinder(id, options, scene);         
-    cir.material=whiteMaterial;           
+    cir.material=randMaterial;           
     cir.state="users";
     cir.isPickable=false;
     cir.rotation = new BABYLON.Vector3(Math.PI,0,0);
+    
+    hl.addMesh(cir, BABYLON.Color3.Random());
     
     console.log("Create Circle");
     

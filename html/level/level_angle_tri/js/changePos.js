@@ -6,7 +6,7 @@ var scaleW = 40 / realWidth;
 var scaleH = 30 / realHeihgt;
 
 //var box;
-
+var sign=1;
 
 //计算转换矩阵
 var matrix = BABYLON.Matrix.Compose(
@@ -22,7 +22,7 @@ var matrix = BABYLON.Matrix.Compose(
 //更新已有mesh的位置
 //更新已有mesh的位置
 function changePos(id, pos)//id，位置参数
-{
+{ 
     var m = scene.getMeshByID(id);
 
     m.setAbsolutePosition(BABYLON.Vector3.TransformCoordinates(pos, matrix));//坐标的投影变换
@@ -31,11 +31,36 @@ function changePos(id, pos)//id，位置参数
     //getAngle(m.position.x,m.position.z+13.5,0.25,-13.5,16,-13.5);
     var angle=getAngle(m.position.x-0.4,m.position.z+13.5);
 
-    console.log("Change");
 
-    showText(parseInt(angle-3).toString(),m);
 
+    angle=parseInt(angle);
+
+
+    if(angle<90){
+
+        angle-=3;
+    }
+    else if(angle>90)
+    {
+        angle+=3;
+    }
+
+    showText(angle.toString(),m);
+
+    if(sign==1)
+    {
+        if(angle==60)
+        {
+            sign=0;
+
+            var music = new BABYLON.Sound("music", "/audio/angle_tri_win.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
+
+            setTimeout("pagesLink()",10000);
+
+        }
+    }
     //createLink(m,pos);
+    console.log("Change");
 
 }
 
@@ -74,4 +99,8 @@ function showText(text,mesh)
 
     }
 
-    
+    function pagesLink() {
+        var new_url = '/html/level/level_define_box/level_define_box.html';
+        window.location.href = new_url;
+        
+    }

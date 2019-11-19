@@ -2,138 +2,148 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <script src="/node_modules/earcut/dist/earcut.min.js"></script>
+  <script src="/node_modules/earcut/dist/earcut.min.js"></script>
 
-    <script src="/node_modules/babylonjs/Oimo.js"></script>
-    <!-- <script src="/node_modules/babylonjs-gui/babylon.gui.min.js"></script> -->
-    <!-- <script src="/js/pep.js"></script> -->
-    <!--可支持触屏操作，需要自己绑定事件-->
+  <script src="/node_modules/babylonjs/Oimo.js"></script>
+  <!-- <script src="/node_modules/babylonjs-gui/babylon.gui.min.js"></script> -->
+  <!-- <script src="/js/pep.js"></script> -->
+  <!--可支持触屏操作，需要自己绑定事件-->
 
-    <script src="/node_modules/babylonjs/babylon.js"></script>
-    <!-- <script src="/node_modules/babylonjs/babylon.max.js"></script>
+  <script src="/node_modules/babylonjs/babylon.js"></script>
+  <!-- <script src="/node_modules/babylonjs/babylon.max.js"></script>
     <script src="/node_modules/babylonjs/babylon.worker.js"></script> -->
-    <script language=javascript src='/node_modules/babylonjs-loaders/babylonjs.loaders.min.js'></script>
+  <script language=javascript src='/node_modules/babylonjs-loaders/babylonjs.loaders.min.js'></script>
+  <script src="/js/babylonjs.materials.min.js"></script>
 
-    <title>level3_fish</title>
+  <title>level3_fish</title>
 
-    <style>
-        html,
-        body {
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            margin: 0;
-            padding: 0;
+  <style>
+    html,
+    body {
+      overflow: hidden;
+      width: 100%;
+      height: 100%;
+      margin: 0;
+      padding: 0;
 
-        }
+    }
 
-        #renderCanvas {
-            display: block;
-            width: 100%;
-            height: 100%;
-            /* touch-action: none; */
-        }
-    </style>
-    <link rel="stylesheet" type="text/css" href="/css/menu/css/normalize.css" />
-    <!--CSS RESET-->
-    <link rel="stylesheet" href="/css/menu/css/style.css">
+    #renderCanvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      /* touch-action: none; */
+    }
+  </style>
+  <link rel="stylesheet" type="text/css" href="/css/menu/css/normalize.css" />
+  <!--CSS RESET-->
+  <link rel="stylesheet" href="/css/menu/css/style.css">
 </head>
 
 <body>
 
-    <body>
-        <nav class="menu-activea">
-            <h1>Menu</h1>
-            <ul>
-              <li><a href="/html/level/level_page_1.html">level1_3</a></li>
-              <li><a href="/html/level/level_page_2.html">level1_C</a></li>
-              <li><a href="/html/level/level_page_3.html">level2_squ</a></li>
-              <li><a href="/html/level/level_page_4.html">level2_tri</a></li>
-              <li><a href="/html/level/level_page_5.html">level3_fish</a></li>
-              <li><a href="/html/level/level_page_6.html">level3_house</a></li>
+  <body>
+    <nav class="menu-activea">
+      <h1>Menu</h1>
+      <ul>
+        <li><a href="/html/level/level_match/level_page_1.html">Match_Level1</a></li>
+        <li><a href="/html/level/level_match/level_page_2.html">Match_Level2</a></li>
+        <li><a href="/html/level/level_match/level_page_3.html">Match_Level3</a></li>
+        <li><a href="/html/level/level_match/level_page_4.html">Match_Level4</a></li>
+        <li><a href="/html/level/level_match/level_page_5.html">Match_Level5</a></li>
+        <li><a href="/html/level/level_match/level_page_6.html">Match_Level6</a></li>
+        <li><a href="/html/level/level_classification/level_classification.html">Classify_Level1</a></li>
+        <li><a href="/html/level/level_edge_box/level_edge_box.html">Edge_Level1</a></li>
+        <li><a href="/html/level/level_edge_rec/level_edge_rec.html">Edge_Level2</a></li>
+        <li><a href="/html/level/level_edge_tri/level_edge_rec.html">Edge_Level3</a></li>
+        <li><a href="/html/level/level_angle_box/level_angle_box.html">Angle_Level1</a></li>
+        <li><a href="/html/level/level_angle_tri/level_angle_tri.html">Angle_Level2</a></li>
+        <li><a href="/html/level/level_define_box/level_define_box.html">Define_Level1</a></li>
+        <li><a href="/html/level/level_define_rec/level_define_rec.html">Define_Level2</a></li>
+        <li><a href="/html/level/level_define_tri/level_define_tri.html">Define_Level3</a></li>
 
-            </ul>
-        </nav>
-        <main>
-            <canvas id="renderCanvas"></canvas>
-        </main>
-        <script src="./js/level/scene_level3_fish.js"></script>
-        <script src="./js/basic.js"></script>
+      </ul>
+    </nav>
+    <main>
+      <canvas id="renderCanvas"></canvas>
+    </main>
+    <script src="./js/level/scene_level3_fish.js"></script>
+    <script src="./js/basic.js"></script>
 
-        <!-- <script src="/js/basic.js"></script> -->
-
-
-
-        <script>
-            //canvas绑定
-            var canvas = document.getElementById("renderCanvas");
-            var engine = new BABYLON.Engine(canvas, true);
-
-
-            var ip = '192.168.1.4';
-            var port = '3030';
-            var trueWidth = 2.5;
-            var trueHeight = 3;
-            var data;
-            var pos;
-
-            //数据获取处理 
-            dataInput(ip, port);
+    <!-- <script src="/js/basic.js"></script> -->
 
 
-            //创建场景
-            scene = createScene();
-            //注册一个重复渲染场景
-            engine.runRenderLoop(function () {
-                scene.render();
-            })
 
-            // 监测浏览器/画布大小改变事件
-            window.addEventListener("resize", function () {
-                engine.resize();
-            })
-
-        </script>
-
-<script>window.jQuery || document.write('<script src="/js/jquery-1.11.0.min.js"><\/script>')</script>
-
-	<script type="text/javascript">
-		(function() {
-
-		  var nav = $('nav'),
-		    menu = $('nav h1'),
-		    main = $('main'),
-		  	open = false,
-		  	hover = false;
-
-		  menu.on('click', function() {
-				open = !open ? true : false;
-		    nav.toggleClass('menu-active');
-		    main.toggleClass('menu-active');
-		    nav.removeClass('menu-hover');
-		    main.removeClass('menu-hover');
-		    // console.log(open);
-		  });
-		  menu.hover( 
-		    function() {
-		      if (!open) {
-		      	nav.addClass('menu-hover');
-		      	main.addClass('menu-hover');
-		      }
-		    }, function() {
-		      nav.removeClass('menu-hover');
-		      main.removeClass('menu-hover');
-		    }
-		  );
-
-		})();
-	</script>
+    <script>
+      //canvas绑定
+      var canvas = document.getElementById("renderCanvas");
+      var engine = new BABYLON.Engine(canvas, true);
 
 
-    </body>
+      var ip = '192.168.1.4';
+      var port = '3030';
+      var trueWidth = 2.5;
+      var trueHeight = 3;
+      var data;
+      var pos;
+
+      //数据获取处理 
+      dataInput(ip, port);
+
+
+      //创建场景
+      scene = createScene();
+      //注册一个重复渲染场景
+      engine.runRenderLoop(function () {
+        scene.render();
+      })
+
+      // 监测浏览器/画布大小改变事件
+      window.addEventListener("resize", function () {
+        engine.resize();
+      })
+
+    </script>
+
+    <script>window.jQuery || document.write('<script src="/js/jquery-1.11.0.min.js"><\/script>')</script>
+
+    <script type="text/javascript">
+        (function () {
+
+          var nav = $('nav'),
+            menu = $('nav h1'),
+            main = $('main'),
+            open = false,
+            hover = false;
+
+          menu.on('click', function () {
+            open = !open ? true : false;
+            nav.toggleClass('menu-active');
+            main.toggleClass('menu-active');
+            nav.removeClass('menu-hover');
+            main.removeClass('menu-hover');
+            // console.log(open);
+          });
+          menu.hover(
+            function () {
+              if (!open) {
+                nav.addClass('menu-hover');
+                main.addClass('menu-hover');
+              }
+            }, function () {
+              nav.removeClass('menu-hover');
+              main.removeClass('menu-hover');
+            }
+          );
+
+        })();
+    </script>
+
+
+  </body>
 
 </html>

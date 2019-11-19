@@ -5,6 +5,8 @@ var realHeihgt = 3;
 var scaleW = 40 / realWidth;
 var scaleH = 30 / realHeihgt;
 
+var sign=1;
+
 //var box;
 
 
@@ -31,11 +33,42 @@ function changePos(id, pos)//id，位置参数
     //getAngle(m.position.x,m.position.z+13.5,0.25,-13.5,16,-13.5);
     var angle=getAngle(m.position.x-0.4,m.position.z+13.5);
 
-    console.log("Change");
 
-    showText(parseInt(angle).toString(),m);
+    angle=parseInt(angle);
+
+
+    if(angle<90){
+
+        angle-=3;
+    }
+    else if(angle>90)
+    {
+        angle+=3;
+    }
+
+    showText(angle.toString(),m);
+
+ 
+    if(sign==1)
+    {
+        if(angle==90)
+        {
+            sign=0;
+
+            var music = new BABYLON.Sound("music", "/audio/angle_box_win.mp3",scene, null, { loop: false, autoplay: true, spatialSound: true });
+
+            setTimeout("pagesLink()",10000);
+
+            
+        }
+    }
+ 
+
 
     //createLink(m,pos);
+
+    console.log("Change");
+
 
 }
 
@@ -74,4 +107,10 @@ function showText(text,mesh)
 
     }
 
+    function pagesLink() {
+   
     
+        var new_url = '/html/level/level_angle_tri/level_angle_tri.html';
+        window.location.href = new_url;
+        
+    }

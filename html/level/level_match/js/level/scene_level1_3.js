@@ -6,30 +6,93 @@ var createScene = function () {
 
     // camera
     var camera = new BABYLON.ArcRotateCamera("camera1", 0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
-
-    camera.setPosition(new BABYLON.Vector3(0, 30, -31.5));
-    // var camera=new BABYLON.FreeCamera("camera1",new BABYLON.Vector3(0,5,-10),scene);//创建和放置自由相机
-
+    camera.setPosition(new BABYLON.Vector3(0, 22, -32));
     camera.attachControl(canvas, true);
     // lights
+    var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 30, 0), scene);
+    var light2 = new BABYLON.HemisphericLight("light2", new BABYLON.Vector3(10, 10, 0), scene);
 
-    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 30, 0), scene);
-    // var light = new BABYLON.HemisphericLight("light2", new BABYLON.Vector3(10, 10, 0), scene);
-
-    light.intensity = 0.95;
 
     
-    //设置背景环境
-    BABYLON.SceneLoader.ImportMesh("","/img/","cloud.glb",scene,function(newMeshes/*,particleSysterms,skeletons*/){
+    // Skybox
+    var skybox = BABYLON.Mesh.CreateBox("skyBox", 5000.0, scene);
+    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/img/TropicalSunnyDay/TropicalSunnyDay", scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+    skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
+
+    
+    // Water material
+    var waterMaterial = new BABYLON.WaterMaterial("waterMaterial", scene, new BABYLON.Vector2(512, 512));
+    waterMaterial.bumpTexture = new BABYLON.Texture("/img/waterbump.png", scene);
+    waterMaterial.windForce = -10;
+    waterMaterial.waveHeight = 0.5;
+    waterMaterial.bumpHeight = 0.1;
+    waterMaterial.waveLength = 0.1;
+    waterMaterial.waveSpeed = 50.0;
+    waterMaterial.colorBlendFactor = 0;
+    waterMaterial.windDirection = new BABYLON.Vector2(1, 1);
+    waterMaterial.colorBlendFactor = 0;
+
+    // Water mesh
+    var waterMesh = BABYLON.Mesh.CreateGround("waterMesh", 512, 512, 32, scene, false);
+    waterMesh.material = waterMaterial;
+    waterMesh.position.y=-4;
+    // Configure water material
+    waterMaterial.addToRenderList(skybox);
+    
+    //加载模型
+      BABYLON.SceneLoader.ImportMesh( ["Cylinder.036_MainPlant_0", "Cylinder.024_MainPlant_0", "Cylinder.019_MainPlant_0",  "Cylinder.008_MainPlant_0","Cylinder.017_MainPlant_0","Cylinder.002_MainPlant_0","Cube.004_MainPlant_0"],"/img/scene/","scene.gltf",scene,function(newMeshes/*,particleSysterms,skeletons*/){
         
-        var ocloud = newMeshes[0];
+        var ocloud1 = newMeshes[1];
+        var ocloud2 = newMeshes[2];
+        var ocloud3 = newMeshes[3];
+        var ocloud4 = newMeshes[4];
+        var ocloud5 = newMeshes[5];
+        var ocloud6 = newMeshes[6];
+        var ocloud7 = newMeshes[7];
+
         
-        //seagulf.position = new BABYLON.Vector3(0,3,0);
-        ocloud.scaling = new BABYLON.Vector3(15,15,15);        
+        ocloud1.position = new BABYLON.Vector3(30,-2,30);
+        ocloud1.scaling = new BABYLON.Vector3(0.8,1,0.8);               
+        ocloud1.rotation = new BABYLON.Vector3(-Math.PI / 2, 0, 0);
+
+        ocloud2.position = new BABYLON.Vector3(-30,-4,20);
+        ocloud2.scaling = new BABYLON.Vector3(1,1,0.8);               
+        ocloud2.rotation = new BABYLON.Vector3(-Math.PI / 2, 0, 0);
+
+        ocloud3.position = new BABYLON.Vector3(40,-2,30);
+        ocloud3.scaling = new BABYLON.Vector3(1,1,0.8);               
+        ocloud3.rotation = new BABYLON.Vector3(-Math.PI / 2, 0, 0);
+
+        ocloud4.position = new BABYLON.Vector3(-40,-3,30);
+        ocloud4.scaling = new BABYLON.Vector3(1,1,0.8);               
+        ocloud4.rotation = new BABYLON.Vector3(-Math.PI / 2, 0, 0);
+
+        
+        ocloud5.position = new BABYLON.Vector3(40,-4,20);
+        ocloud5.scaling = new BABYLON.Vector3(1,1,0.8);               
+        ocloud5.rotation = new BABYLON.Vector3(-Math.PI / 2, 0, 0);
+
+
+        ocloud6.position = new BABYLON.Vector3(-40,-3,20);
+        ocloud6.scaling = new BABYLON.Vector3(1,1,0.8);               
+        ocloud6.rotation = new BABYLON.Vector3(-Math.PI / 2, 0, 0);
+
+        ocloud7.position = new BABYLON.Vector3(-40,-3,30);
+        ocloud7.scaling = new BABYLON.Vector3(1,1,0.8);               
+        ocloud7.rotation = new BABYLON.Vector3(-Math.PI / 2, 0, 0);
+
+        // ocloud.scaling = new BABYLON.Vector3(0.001,0.001,0.001);        
         //shadowGenerator.getShadowMap().renderList.push(seagulf);
         //scene.beginAnimation(skeletons[0],0,100,true,0.8);
         //scene.createCmeraOrLight(true,ture,ture);
     } );
+
   
     var randMaterial = new BABYLON.StandardMaterial('redMat', scene);
     randMaterial.diffuseColor = BABYLON.Color3.Random();
@@ -214,88 +277,8 @@ var createScene = function () {
     para.state = "truepara7";
 
 
-
-
-
-
-
-
-    /*********************************Start World Axes 世界坐标系显示********************/
-    var showAxis = function (size) {
-        var makeTextPlane = function (text, color, size) {
-            var dynamicTexture = new BABYLON.DynamicTexture("DynamicTexture", 50, scene, true);
-            dynamicTexture.hasAlpha = true;
-            dynamicTexture.drawText(text, 5, 40, "bold 36px Arial", color, "transparent", true);
-            var plane = new BABYLON.Mesh.CreatePlane("TextPlane", size, scene, true);
-            plane.material = new BABYLON.StandardMaterial("TextPlaneMaterial", scene);
-            plane.material.backFaceCulling = false;
-            plane.material.specularColor = new BABYLON.Color3(0, 0, 0);
-            plane.material.diffuseTexture = dynamicTexture;
-            return plane;
-        };
-
-        var axisX = BABYLON.Mesh.CreateLines("axisX", [
-            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, 0.05 * size, 0),
-            new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, -0.05 * size, 0)
-        ], scene);
-        axisX.color = new BABYLON.Color3(1, 0, 0);
-        var xChar = makeTextPlane("X", "red", size / 10);
-        xChar.position = new BABYLON.Vector3(0.9 * size, -0.05 * size, 0);
-        var axisY = BABYLON.Mesh.CreateLines("axisY", [
-            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(-0.05 * size, size * 0.95, 0),
-            new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(0.05 * size, size * 0.95, 0)
-        ], scene);
-        axisY.color = new BABYLON.Color3(0, 1, 0);
-        var yChar = makeTextPlane("Y", "green", size / 10);
-        yChar.position = new BABYLON.Vector3(0, 0.9 * size, -0.05 * size);
-        var axisZ = BABYLON.Mesh.CreateLines("axisZ", [
-            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, -0.05 * size, size * 0.95),
-            new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, 0.05 * size, size * 0.95)
-        ], scene);
-        axisZ.color = new BABYLON.Color3(0, 0, 1);
-        var zChar = makeTextPlane("Z", "blue", size / 10);
-        zChar.position = new BABYLON.Vector3(0, 0.05 * size, 0.9 * size);
-    };
-    /***************************End World Axes***************************/
-
-    // showAxis(8);//显示世界坐标系 参数代表轴的长度
-
-    /*******************************Local Axes 局部坐标系显示****************************/
-    function localAxes(size) {
-        var pilot_local_axisX = BABYLON.Mesh.CreateLines("pilot_local_axisX", [
-            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, 0.05 * size, 0),
-            new BABYLON.Vector3(size, 0, 0), new BABYLON.Vector3(size * 0.95, -0.05 * size, 0)
-        ], scene);
-        pilot_local_axisX.color = new BABYLON.Color3(1, 0, 0);
-
-        pilot_local_axisY = BABYLON.Mesh.CreateLines("pilot_local_axisY", [
-            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(-0.05 * size, size * 0.95, 0),
-            new BABYLON.Vector3(0, size, 0), new BABYLON.Vector3(0.05 * size, size * 0.95, 0)
-        ], scene);
-        pilot_local_axisY.color = new BABYLON.Color3(0, 1, 0);
-
-        var pilot_local_axisZ = BABYLON.Mesh.CreateLines("pilot_local_axisZ", [
-            new BABYLON.Vector3.Zero(), new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, -0.05 * size, size * 0.95),
-            new BABYLON.Vector3(0, 0, size), new BABYLON.Vector3(0, 0.05 * size, size * 0.95)
-        ], scene);
-        pilot_local_axisZ.color = new BABYLON.Color3(0, 0, 1);
-
-        var local_origin = BABYLON.MeshBuilder.CreateBox("local_origin", { size: 1 }, scene);
-        local_origin.isVisible = false;
-
-        pilot_local_axisX.parent = local_origin;
-        pilot_local_axisY.parent = local_origin;
-        pilot_local_axisZ.parent = local_origin;
-
-        return local_origin;
-
-    }
-    /*******************************End Local Axes****************************/
-
-
-    // localAxes(4);
-
-
+    
+    var music = new BABYLON.Sound("music", "/audio/match_begin.mp3", scene, null, { loop: false, autoplay: true, spatialSound: true });
 
 
 

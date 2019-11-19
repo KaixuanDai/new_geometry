@@ -6,30 +6,56 @@ var createScene = function () {
 
     // camera
     var camera = new BABYLON.ArcRotateCamera("camera1", 0, 0, 0, new BABYLON.Vector3(0, 0, 0), scene);
-
-    camera.setPosition(new BABYLON.Vector3(0, 20, -21.5));
-    // var camera=new BABYLON.FreeCamera("camera1",new BABYLON.Vector3(0,5,-10),scene);//创建和放置自由相机
-
+    camera.setPosition(new BABYLON.Vector3(0, 22, -32));
     camera.attachControl(canvas, true);
     // lights
+    var light1 = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 30, 0), scene);
+    var light2 = new BABYLON.HemisphericLight("light2", new BABYLON.Vector3(10, 10, 0), scene);
 
-    var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10, 0), scene);
-    // var light = new BABYLON.HemisphericLight("light2", new BABYLON.Vector3(10, 10, 0), scene);
 
-    light.intensity = 0.95;
 
-      
+    // Skybox
+    var skybox = BABYLON.Mesh.CreateBox("skyBox", 5000.0, scene);
+    var skyboxMaterial = new BABYLON.StandardMaterial("skyBox", scene);
+    skyboxMaterial.backFaceCulling = false;
+    skyboxMaterial.reflectionTexture = new BABYLON.CubeTexture("/img/TropicalSunnyDay/TropicalSunnyDay", scene);
+    skyboxMaterial.reflectionTexture.coordinatesMode = BABYLON.Texture.SKYBOX_MODE;
+    skyboxMaterial.diffuseColor = new BABYLON.Color3(0, 0, 0);
+    skyboxMaterial.specularColor = new BABYLON.Color3(0, 0, 0);
+    skyboxMaterial.disableLighting = true;
+    skybox.material = skyboxMaterial;
+
+
+    // Water material
+    var waterMaterial = new BABYLON.WaterMaterial("waterMaterial", scene, new BABYLON.Vector2(512, 512));
+    waterMaterial.bumpTexture = new BABYLON.Texture("/img/waterbump.png", scene);
+    waterMaterial.windForce = -10;
+    waterMaterial.waveHeight = 0.5;
+    waterMaterial.bumpHeight = 0.1;
+    waterMaterial.waveLength = 0.1;
+    waterMaterial.waveSpeed = 50.0;
+    waterMaterial.colorBlendFactor = 0;
+    waterMaterial.windDirection = new BABYLON.Vector2(1, 1);
+    waterMaterial.colorBlendFactor = 0;
+
+    // Water mesh
+    var waterMesh = BABYLON.Mesh.CreateGround("waterMesh", 512, 512, 32, scene, false);
+    waterMesh.material = waterMaterial;
+    waterMesh.position.y = -4;
+    // Configure water material
+    waterMaterial.addToRenderList(skybox);
+
     //设置背景环境
-    BABYLON.SceneLoader.ImportMesh("","/img/","cloud.glb",scene,function(newMeshes/*,particleSysterms,skeletons*/){
-        
-        var ocloud = newMeshes[0];
-        
-        //seagulf.position = new BABYLON.Vector3(0,3,0);
-        ocloud.scaling = new BABYLON.Vector3(15,15,15);        
-        //shadowGenerator.getShadowMap().renderList.push(seagulf);
-        //scene.beginAnimation(skeletons[0],0,100,true,0.8);
-        //scene.createCmeraOrLight(true,ture,ture);
-    } );
+    //   BABYLON.SceneLoader.ImportMesh("","/img/","cloud.glb",scene,function(newMeshes/*,particleSysterms,skeletons*/){
+
+    //     var ocloud = newMeshes[0];
+
+    //     //seagulf.position = new BABYLON.Vector3(0,3,0);
+    //     ocloud.scaling = new BABYLON.Vector3(15,15,15);        
+    //     //shadowGenerator.getShadowMap().renderList.push(seagulf);
+    //     //scene.beginAnimation(skeletons[0],0,100,true,0.8);
+    //     //scene.createCmeraOrLight(true,ture,ture);
+    // } );
 
 
 
@@ -212,7 +238,7 @@ var createScene = function () {
 
 
     var true_map = BABYLON.MeshBuilder.ExtrudePolygon("map", { shape: beijing, depth: 0.2, sideOrientation: BABYLON.Mesh.DOUBLESIDE, updatable: true }, scene);
-    true_map.setAbsolutePosition(10,10,0);
+    true_map.setAbsolutePosition(10, 10, 0);
     true_map.position = new BABYLON.Vector3(5, 1, -1)
 
     // true_map.scaling = new BABYLON.Vector3(4, 1, 4);
